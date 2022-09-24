@@ -1,0 +1,140 @@
+
+# Patterns Over Time
+
+## Surface Water Temperature
+
+For a set of lakes around the world, lake surface water temperature (LSWT) has been obtained using reflectance measurements recorded by the AATSR satellite system. We have a set of monthly LSWT values for Lake Balaton, a large freshwater lake located in Hungary. Note that the observed series has been reconstructed so that it is possible for LSWT below zero to be recorded.  
+
+<br>
+
+Look at the first few lines of the data frame by running the following code:
+
+```{r headb, eval=FALSE}
+
+head(balaton)
+
+```
+
+<br>
+
+This worksheet contains 4 columns, described as follows: 
+
+* `C1` Year 
+* `C2` Month (1= Jan, ..., 12= Dec) 
+* `C3` Season (1= Mar-May, 2= Jun-Aug, 3= Sept-Nov, 4= Dec-Feb) 
+* `C4` Lake surface water temperature (degrees Celsius) 
+
+<br>
+
+Column names can be seen by running the following line of code:
+
+```{r namesb, eval=FALSE}
+
+names(balaton)
+
+```
+
+<br>
+
+The whole dataset can be viewed by typing the name of the object in the script file and running that line:
+
+```{r b, eval=FALSE}
+
+balaton
+
+```
+
+<br>
+
+## Naming Columns
+
+<br>
+
+We are going to extract and name columns from the data set so they can be easily referred to later on. Run the following lines of code: 
+
+```{r extrct, eval=FALSE}
+
+year   <- balaton[,1] 
+month  <- balaton[,2] 
+lswt   <- balaton[,4]
+
+year  # this allows you to check what the contents of the object created 
+
+```
+
+<br>
+
+## Decimal Date
+
+<br>
+
+Decimal date provides a continuous measure of time which is useful for producing plots. To construct decimal date we need to create a new variable, say `dec.date`, as per the following formula:
+
+$$\mathrm{dec.date} = \mathrm{year}+\frac{\mathrm{month}-1}{12} $$
+<br>
+
+### **Task 1**
+
+
+**Write code to create a new variable called `dec.date` from the variables `year` and `month`.**
+
+`r hide("Hint")`
+
+You may want to write the above formula in R.
+
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r sol1, eval=FALSE}
+
+dec.date <- year + (month-1)/12
+
+
+```
+
+`r unhide()`
+
+You can check your variable by simply running 'dec.date' in your R script, after having created the variable. 
+
+<br>
+
+## Plotting The Data
+
+<br>
+
+For a single lake, the **pattern over time** for LSWT can be examined by plotting the data. (We first need to add the newly created 'dec.date' varaible to the data set). 
+
+```{r timeplot, eval=FALSE}
+
+rename(balaton, lswt = BALATON) # Renaming the variable in the data set from it's original BALATON to lswt
+
+balaton <- balaton %>% 
+  mutate(dec.date = year + (month-1)/12) # Adding the dec.date variable 
+
+
+ggplot(data = balaton, aes(x = dec.date, y = lswt)) + 
+  geom_line() +
+  labs(title = "LSWT (Celsius) at Lake Balaton") +
+  xlab("Date") +
+  ylab("LSWT (Celcius)")
+
+# Creating a line plot using the tidyverse packages and our variables
+```
+
+<br>
+
+**Which of the following sentences best describes the LSWT patterns over time at Lake Balaton?**
+
+```{r, echo = FALSE}
+lswt_pat <- sample(c(
+    "Evidence for both trend and seasonal pattern",
+    answer = "Evidence for a seasonal pattern but no evidence for a trend",
+    "No evidence for regular seasonal pattern",
+    "Evidence for an increasing trend")
+)
+```
+
+`r longmcq(lswt_pat)`
+
+<br>

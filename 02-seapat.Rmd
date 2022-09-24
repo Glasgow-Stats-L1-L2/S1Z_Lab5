@@ -1,0 +1,77 @@
+
+# Seasonal Patterns
+
+In addition to looking at trend over time it is also of interest to examine the seasonal pattern within each year. 
+
+## **Task 2**
+
+
+**Write code to produce a seasonal plot of the LSWT.**
+
+`r hide("Hint")`
+
+You may want to copy the previous code for exploring the patterns over time but use the `month` variable instead, and change any other necessary code. You will also want to produce a scatter plot as opposed to a line graph.
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r sol2, eval=FALSE}
+
+ggplot(data = balaton, aes(x = month, y = lswt)) + 
+  geom_point() +
+  labs(title = "Monthly LSWT (Celsius) at Lake Balaton") +
+  xlab("Month") +
+  ylab("LSWT (Celcius)")
+
+```
+
+`r unhide()`
+
+<br>
+
+## **Task 3**
+
+
+**Write code to produce a boxplot of the LSWT by month**
+
+`r hide("Hint")`
+
+You may want to use 'geom_boxplot' instead of 'geom_line'.
+
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r sol3, eval=FALSE}
+
+ggplot(data = balaton, aes(x = as.factor(month), y = lswt)) + 
+  geom_boxplot() +
+  labs(title = "Monthly LSWT (Celsius) at Lake Balaton") +
+  xlab("Month") +
+  ylab("LSWT (Celcius)")
+
+```
+
+`r unhide()`
+
+<br>
+
+Boxplots enable us to see a summary of the LSWT measurements for each month, and they also make it easy to compare the distribution and variability of lswt across the months.
+
+<br>
+
+**In which months are the lowest temperatures observed?**
+
+```{r, echo = FALSE}
+lowq <- sample(c(
+    "November - December",
+    "July - August",
+    answer = "January - February",
+    "December - January"
+   )
+)
+```
+
+`r longmcq(lowq)`
+
+<br>

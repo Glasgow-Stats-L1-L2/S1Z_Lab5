@@ -1,0 +1,73 @@
+# Group Exercise 
+
+<br>
+
+```{r, echo = FALSE}
+
+#!!!
+
+# NOTE TO STEPHEN: Please provide solutions for the Group Exercise. Also, the link to get the data to use in the Group Exercise didn't work for me FYI.
+
+# P.S: The code for the students, (mainly for graphs), has been converted from base R to ggplot, please double check it is correct and as you want it.
+  
+#!!!
+  
+```
+
+Go to the website:
+<a href="http://shiny.maths-stats.gla.ac.uk/rhaggarty/S1ZLab/" target="_blank">http://shiny.maths-stats.gla.ac.uk/rhaggarty/S1ZLab/</a>,
+and enter your favorite number between 1 and 600. This lake ID will generate a set of data based on lake mean surface water temperature (LSWT) measurements collected by the ArcLake project. The temperature measurements are in Kelvin. Press the download button and save the data on your PC. 
+
+Open the data in `R` by first setting the working directory to where you have stored the data (go to `Session > Set Working Directory > Choose Directory`). 
+
+Then open the data with the command:
+
+```{r eval=FALSE}
+mydat <- read.csv("mydat.csv")
+```
+
+## Once you have your dataset
+
+<br>
+
+### Summarise the data by answering the following: 
+
+<br>
+
+* Where is the lake located? (hint: use Google). 
+* How many observations are there? 
+* How many years of data are there? 
+* How many observations per year?
+
+<br>
+
+### Use the Balaton data example to help with the R code needed to answer the following questions:
+
+<br>
+
+1. Produce a time series plot and a plot of the seasonal pattern (boxplots for each time unit within a year).
+* What are your subjective impressions from these plots?
+\
+
+<br>
+
+2.  Fit a model with a trend and seasonal component.
+\
+$$Y_t= \beta_0+\beta_1x_t+\gamma_1 \text{sin}\left(\frac{2\pi m_t}{p}\right)+\gamma_2 \text{cos}\left(\frac{2\pi m_t}{p}\right)+\epsilon_t$$
+\
+
+<br>
+
+3. Interpret the R output from the fitted model. 
+* Is there a statistically significant trend?
+* Is there a statistically significant seasonal pattern?
+* What does the R squared value tell you about the fitted model?
+\
+
+<br>
+
+4. Using the residuals from the fitted model, check the assumptions of:
+* Independence (use an ACF plot)
+* Normality
+* Constant variance
+* Zero mean

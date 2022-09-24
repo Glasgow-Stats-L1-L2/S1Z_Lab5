@@ -1,0 +1,366 @@
+# Modelling Trend and Seasonality
+
+<br>
+
+## Recap: The Harmonic Regression Model 
+
+<br>
+
+During the case study lectures, we have looked at describing trend and seasonal patterns using linear regression models. We have considered how to fit a linear model through estimating the parameters in a *harmonic regression model* like the following:
+
+$$Y_t= \beta_0+\beta_1x_t+\gamma_1 \text{sin}\left(\frac{2\pi m_t}{p}\right)+\gamma_2 \text{cos}\left(\frac{2\pi m_t}{p}\right)+\epsilon_t$$
+
+where:
+
+* $Y_t$ corresponds to the response variable, in this example, `LSWT`
+* $x_t$ corresponds to the covariate or explanatory variable decimal date, `dec.date`
+* $\gamma_1$ and $\gamma_2$ are the coefficients of the harmonic terms describing the seasonal pattern 
+* $p$ is the *fixed* period of the seasonal pattern
+* $m_t$ is the month of the year.
+
+
+This linear model is based on several **assumptions**:
+
+1. The random errors, $\epsilon$, are independent. 
+2. The random errors, $\epsilon$, have mean zero. 
+3. The random errors, $\epsilon$, follow a normal distribution. 
+4. The random errors, $\epsilon$, have constant variance. 
+
+ 
+The first assumption will be discussed later. 
+
+Assumptions 2-4 can be assessed using residual plots. 
+
+<br>
+
+## Fitting a Linear Model in R 
+
+### Model with trend and seasonal pattern
+
+<br>
+
+To find the equation that best describes the LSWT temporal patterns, we use the linear model `lm` function and store the model output in an object called `model1`. 
+
+```{r, eval = FALSE}
+# fit the model
+model1 <- lm(lswt ~ dec.date + sin((2*pi*month)/12)+ cos((2*pi*month)/12))
+
+# show the model output
+summary(model1)
+```
+
+This fits a linear regression model with the response variable **LSWT** and explanatory terms corresponding to trend and seasonal patterns. 
+
+<br>
+
+## Assumption Checking 
+
+<br>
+
+Before assessing the fit of the model it is important that we check that the assumptions underlying the model are satisfied.  In order to do this we need to obtain the residuals after fitting the model above.  These can be obtained and stored using the commands: 
+
+```{r, echo=TRUE, eval=FALSE}
+# obtain residuals of model1
+res <- residuals(model1) 
+
+# obtain standardised residuals of model1
+stres <- rstandard(model1) 
+```
+ 
+with the latter command providing the standardised residuals. 
+
+Fitted values can also be extracted from the model and stored in an object using the command: 
+ 
+```{r fitted, echo=TRUE, eval=FALSE}
+# obtain fitted values for model1
+fits <- fitted(model1) 
+```
+
+These commands can be used to produce a plot of the residuals versus the fitted values and a normal probability plot of the residuals to graphically assess assumptions 2,3 and 4. 
+
+```{r modres, echo=FALSE, eval=TRUE}
+model1 <- lm(lswt ~ dec.date + sin((2*pi*month)/12)+ cos((2*pi*month)/12))
+res <- residuals(model1) 
+stres <- rstandard(model1) 
+fits <- fitted(model1) 
+```
+
+<br>
+
+### Standardised residuals versus fitted values
+
+<br>
+
+#### **Task 4**
+
+**Write code to produce a scatterplot for the standardized residuals versus the fitted values of `model1`.**
+
+`r hide("Hint")`
+
+Let A denote the event that a person has two differently coloured eyes. Remember that you can use the following formula for computing the probability of seeing at least one person with that characteristic in a sample of size n: $1-(1-P(A))^n$
+
+`r unhide()`
+
+
+`r hide("Solution")`
+
+```{r task4sol, eval = FALSE}
+ggplot() +
+  geom_point(aes(x = fits, y = stres)) +
+  labs(title = "Residuals Vs Fits for Model 1") +
+  xlab("Fitted Values") +
+  ylab("Standardised Residuals")
+```
+
+`r unhide()`
+
+<br>
+
+A normal probability plot of the model residuals can be produced by: 
+
+```{r qqnorm, eval = FALSE}
+qqnorm(stres, main= "Normal Probability Plot of the Residuals for Model 1") 
+qqline(stres, col=2, lwd=2) 
+```
+
+In the second line of the above code chunk, `col` sets the colour of the line and `lwd` sets the line width.  
+
+<br>
+
+**Do the model assumptions of zero mean and constant variance errors appear to hold from above scatterplot of the residuals against the fitted values?**
+
+```{r, echo = FALSE}
+q_moda <- sample(c(
+   "No",
+   answer = "Yes"
+)
+)
+```
+
+`r longmcq(q_moda)`
+
+<br>
+
+**Do the residuals appear to be normally distributed?**
+
+```{r, echo = FALSE}
+q_modr <- sample(c(
+   "No",
+   answer = "Yes"
+)
+)
+```
+
+`r longmcq(q_modr)`
+
+<br>
+
+For the first assumption we can look at an ACF of the residuals.
+
+<br>
+
+#### **Task 5**
+
+**Write code to produce an ACF for the standardized residuals of `model1`.**
+
+`r hide("Hint")`
+
+You may want to use the function `acf()`.
+
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r task5sol, eval = FALSE}
+acf(stres, main="ACF of Residuals from Model 1")
+```
+
+`r unhide()`
+
+<br>
+
+**Do the residuals appear to be autocorrelated?**
+
+```{r, echo = FALSE}
+q_resids <- sample(c(
+   "Yes",
+   answer = "No"
+)
+)
+```
+
+`r longmcq(q_resids)`
+
+<br>
+
+After assessing the assumptions we will now look at a summary of this linear model which can be obtained by typing:
+
+```{r model1summary, eval = FALSE}
+summary(model1) 
+```
+
+<br>
+
+**Is there any evidence that the LSWT exhibits a linear trend?**
+
+```{r, echo = FALSE}
+q_lintr <- sample(c(
+   "Yes",
+   answer = "No"
+)
+)
+```
+
+`r longmcq(q_lintr)`
+
+<br>
+
+<br>
+
+**Is there any evidence that the LSWT exhibit significant seasonality?**
+
+```{r, echo = FALSE}
+q_resids <- sample(c(
+   "No",
+   answer = "Yes"
+)
+)
+```
+
+`r longmcq(q_resids)`
+
+<br>
+
+### Model with seasonal pattern only
+
+<br>
+
+As the trend term is not significant we can remove this term and re-fit the model. 
+
+#### **Task 6**
+
+**Write code to fit a model for describing the seasonal patterns of LSWT.**
+
+`r hide("Hint")`
+
+You may want to use the function `lm()` we used before to fit `model1` 
+but drop the `dec.date` term.
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r task6sol, eval = FALSE}
+model2 <- lm(lswt ~ sin((2*pi*month)/12) + cos((2*pi*month)/12))  
+```
+
+`r unhide()`
+
+<br>
+
+#### **Task 7**
+
+**Write code to obtain a summary for model2.**
+
+`r hide("Hint")`
+
+You may want to use the function `summary()`.
+
+`r unhide()`
+
+`r hide("Solution")`
+
+```{r task7sol, eval = FALSE}
+summary(model2)  
+```
+
+`r unhide()`
+
+<br>
+
+Both coefficients of the harmonic regression term have p-values <0.05, indicating that there is a statistically significant seasonal pattern. There are now no terms in this model which are not statistically significant. Despite removing the trend term from the model, the R squared adjusted value indicates that the percentage of variability in LSWT explained by the model has not changed and is still 92\%.  
+
+<br>
+
+The estimated  average value of LSWT in June is (To 2 decimal places). `r fitb(14.28)`. 
+
+<br>
+
+**We should again check that the assumptions are valid for this model -  I’ll leave this up to you!** 
+
+Start by tracking down the commands required to calculate the standardised residuals, the fitted values and make appropriate plots to check the assumptions (scatterplots, QQ plot, acf plot).
+
+```{r model2assumptions, eval = FALSE}
+
+# Calculate residuals, standardised residuals and fitted values based on model2
+# res2 <-
+# stres2 <-
+# fits2 <-
+
+# Produce required plots to check assumptions
+
+
+```
+
+`r hide("Hint 1")`
+
+```{r hint1, eval = FALSE}
+# produce residuals, standardised residuals and fitted values
+res2 <- residuals(model2)
+stres2 <- rstandard(model2)
+fits2 <- fitted(model2)
+```
+
+`r unhide()`
+
+`r hide("Hint 2")`
+
+```{r hint2, eval = FALSE}
+# produce residuals, standardised residuals and fitted values
+res2 <- residuals(model2)
+stres2 <- rstandard(model2)
+fits2 <- fitted(model2)
+
+# check model assumptions using plots
+plot(???)
+
+qqnorm(???)
+qqline(???)
+
+acf(???)
+```
+
+`r unhide()`
+
+<br>
+
+**What can you say about the assumptions of model2?**
+
+```{r, echo = FALSE}
+q_mod2a <- sample(c(
+    "Normality assumption is not met ",
+    "Zero mean assumption is not met ",
+     "Constant variance assumption is not met ",
+    answer = "All assumptions are being met "
+)
+)
+```
+
+`r longmcq(q_mod2a)`
+
+<br>
+
+## Plot Data with Fitted Curve 
+
+<br>
+
+A plot of the data can be re-produced as before with the fitted curve added by obtaining the fitted values from `model2` for each value of the variable `dec.date` in the data: 
+
+```{r obsfit, eval = FALSE}
+ggplot(data = balaton, aes(x = dec.date, y = lswt)) + 
+  geom_line() +
+  labs(title = "LSWT (Celsius) at Lake Balaton") +
+  xlab("Date") +
+  ylab("LSWT (Celcius)") +
+  geom_line(aes(x = dec.date, y = fitted(model2)), col = 'red')
+```
+

@@ -1,0 +1,71 @@
+# Differencing
+
+<br>
+
+An alternative approach to exploring the structure in the data is to use differencing. Differencing of order $1$ was defined in lectures as: 
+
+$$\nabla X_t =  X_t - X_{t-1} $$  
+and, in general, differencing of order $q$ can be written as:
+$$\nabla^q X_t = \nabla[ \nabla^{q-1} X_t ] $$  
+
+Differencing can be applied to a time series of observations, $x$, in order to create a new series, $z$; this method works well in removing trends, seasonal patterns and cycles. For a seasonal pattern with period $d$, we can define the difference operation with lag $d$ as follows:
+
+$$\nabla_d X_t = X_t - X_{t-d} $$  
+
+For example, first differencing $q=1$ applied to a series with a linear trend eliminates the trend, while if there is a seasonal pattern in monthly data such that cycles of length 12 exist, a 12th difference, with lag $d=12$, will remove them. 
+
+To apply a lag 12 difference to the monthly LSWT data for Lake Balaton type: 
+
+```{r diff, eval = FALSE}
+diff12 <- diff(lswt, lag = 12) 
+```
+ 
+We can then look at a plot of the differenced data obtained by:
+
+```{r diffplot, eval=FALSE}
+ggplot() +
+  geom_line(aes(x = dec.date[-c(1:12)], y = diff12)) +
+  xlab("Date") +
+  ylab("Differenced Time Series") + 
+  geom_hline(yintercept = 0, color = "red", size = 0.5)
+```
+
+In the above plot command, we remove the first 12 values of `dec.date` as they don't have corresponding values from `diff12`. The function `geom_hline()` in the above code plots a horizontal red (`col = "red"`) line at zero (`yintercept = 0`).   
+
+<br>
+
+**Has the lag 12 differencing successfully removed the seasonal pattern from the time series?**
+
+```{r, echo = FALSE}
+q_diff <- sample(c(
+   "No",
+   answer = "Yes"
+)
+)
+```
+
+`r longmcq(q_diff)`
+
+<br>
+
+An ACF of the differenced data can then be produced to check more formally whether or not the deterministic pattern (in this case the seasonal pattern) has been removed:
+
+```{r acfdiff, eval = FALSE}
+acf(diff12,  main="ACF of lag 12 differenced LSWT at Lake Balaton", xlab="Lag (months)") 
+```
+
+<br>
+
+**Does the above ACF of the de-seasonalised series highlight remaining serial autocorrelation?**
+
+```{r, echo = FALSE}
+q_acf2 <- sample(c(
+   "Yes",
+   answer = "No"
+)
+)
+```
+
+`r longmcq(q_acf2)`
+
+<br>

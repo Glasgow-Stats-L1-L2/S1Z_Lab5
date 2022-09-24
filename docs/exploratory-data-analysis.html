@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Exploratory Data Analysis | S1Z Lab 4</title>
+  <meta name="description" content="2 Exploratory Data Analysis | S1Z Lab 4" />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Exploratory Data Analysis | S1Z Lab 4" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Exploratory Data Analysis | S1Z Lab 4" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="simple-linear-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to S1Z Lab 4</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#intended-learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Intended Learning Outcomes</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>2</b> Exploratory Data Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploring-the-data"><i class="fa fa-check"></i><b>2.1.1</b> Exploring the data</a></li>
+<li class="chapter" data-level="2.1.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-1"><i class="fa fa-check"></i><b>2.1.2</b> <strong>Exercise 1</strong></a></li>
+<li class="chapter" data-level="2.1.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-2"><i class="fa fa-check"></i><b>2.1.3</b> <strong>Exercise 2</strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html"><i class="fa fa-check"></i><b>3</b> Simple Linear Regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="simple-linear-regression.html"><a href="simple-linear-regression.html#exercise-3"><i class="fa fa-check"></i><b>3.1</b> <strong>Exercise 3</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="collinearity.html"><a href="collinearity.html"><i class="fa fa-check"></i><b>4</b> Collinearity</a></li>
+<li class="chapter" data-level="5" data-path="multiple-predictors.html"><a href="multiple-predictors.html"><i class="fa fa-check"></i><b>5</b> Multiple Predictors</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="multiple-predictors.html"><a href="multiple-predictors.html#exercise-4"><i class="fa fa-check"></i><b>5.1</b> <strong>Exercise 4</strong></a></li>
+<li class="chapter" data-level="5.2" data-path="multiple-predictors.html"><a href="multiple-predictors.html#interpretation-of-a-categorical-variable-with-2-levels"><i class="fa fa-check"></i><b>5.2</b> Interpretation of a Categorical Variable with 2 levels</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multiple-predictors.html"><a href="multiple-predictors.html#exercise-5"><i class="fa fa-check"></i><b>5.2.1</b> <strong>Exercise 5</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="multiple-predictors.html"><a href="multiple-predictors.html#interpretation-of-a-categorical-variable-with-more-than-2-levels"><i class="fa fa-check"></i><b>5.3</b> Interpretation of a Categorical Variable with more than 2 levels</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html"><i class="fa fa-check"></i><b>6</b> Finding the Best Model</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#exercise-6"><i class="fa fa-check"></i><b>6.1</b> <strong>Exercise 6</strong></a></li>
+<li class="chapter" data-level="6.2" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#exercise-7"><i class="fa fa-check"></i><b>6.2</b> <strong>Exercise 7</strong></a></li>
+<li class="chapter" data-level="6.3" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#exercise-8"><i class="fa fa-check"></i><b>6.3</b> <strong>Exercise 8</strong></a></li>
+<li class="chapter" data-level="6.4" data-path="finding-the-best-model.html"><a href="finding-the-best-model.html#exercise-9"><i class="fa fa-check"></i><b>6.4</b> <strong>Exercise 9</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="group-exercise.html"><a href="group-exercise.html"><i class="fa fa-check"></i><b>7</b> Group Exercise</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">S1Z Lab 4</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Exploratory Data Analysis<a href="exploratory-data-analysis.html#exploratory-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><br></p>
+<p><img src="images/lecturer.jpg" width="25%" /></p>
+<p><br></p>
+<div id="data" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Data<a href="exploratory-data-analysis.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many university courses conclude by giving students the opportunity to evaluate the course and the instructor anonymously. However, the use of these student evaluations as an indicator of course quality and teaching effectiveness is often criticized because these measures may reflect the influence of non-teaching related characteristics, such as the physical appearance of the instructor.</p>
+<p>The article titled, <a href="https://www.sciencedirect.com/science/article/pii/S0272775704001165?casa_token=3Zz3cupeQ8MAAAAA:8CMoSg5s3BgdhwM6oW9tjcWSZ-MkgYTGYitN4NxvRBAfHuKcmoPnTtzxAgOSURYpDYD8C5EDJg"> Beauty in the classroom: instructors' pulchritude and putative pedagogical productivity</a> by Hamermesh and Parker found that instructors who are viewed to be better looking receive higher instructional ratings.</p>
+<p>In this lab we will analyze the data from this study in order to learn what goes into a positive lecturer evaluation.</p>
+<p>The data were gathered from end of semester student evaluations for a large sample of lecturers from the University of Texas at Austin. In addition, six students rated the lecturers' physical appearance. The result is a data frame where each row contains a different course/lecturer and columns represent variables about the courses and lecturers.</p>
+<p>The data frame is called <code>evals</code> and is contained in the <strong>openintro</strong> package (you can read more about it <a href="https://www.openintro.org/data/index.php?data=evals"> here</a>).</p>
+<p>We can view the first few lines of the data running the <code>head</code> function.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="exploratory-data-analysis.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(evals)</span></code></pre></div>
+<p>It can be seen that the data contains 23 variables which we will explore to see if they have any relationship with the variable <code>score</code>, the evaluation score of each lecturer in each course (the "response" variable). These variables include both categorical and numerical types of variables.</p>
+<p>To find out more about each variable we can use the <code>help</code> function by running <code>?evals</code>.</p>
+<div id="exploring-the-data" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Exploring the data<a href="exploratory-data-analysis.html#exploring-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we start to model the data, we need to understand the data and the different types of variables.</p>
+<p><br></p>
+<p><strong>What type of study design is this?</strong></p>
+<div id="radio_ZNCVMKNOLT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZNCVMKNOLT" value=""></input> <span>Experimental</span></label><label><input type="radio" autocomplete="off" name="radio_ZNCVMKNOLT" value="answer"></input> <span>Observational</span></label>
+</div>
+<p><br></p>
+</div>
+<div id="exercise-1" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> <strong>Exercise 1</strong><a href="exploratory-data-analysis.html#exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Plot the <code>score</code> variable using a histogram to investigate its distribution. You can specify the colour of your plot by using the <code>fill = ...</code> argument (see <a href="https://www.r-graph-gallery.com/42-colors-names.html"> here</a> for some colours with their names in <strong>R</strong>).</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="exploratory-data-analysis.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ???, <span class="fu">aes</span>(???)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="exploratory-data-analysis.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(???)</span></code></pre></div>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="exploratory-data-analysis.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> evals, <span class="fu">aes</span>(<span class="at">x =</span> score)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="exploratory-data-analysis.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;violetred&quot;</span>, <span class="at">bins =</span> <span class="dv">40</span>)</span></code></pre></div>
+</div>
+<p><br></p>
+<p><strong>Is the distribution skewed?</strong></p>
+<div id="radio_MLEFKMXLLM" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_MLEFKMXLLM" value=""></input> <span>No</span></label><label><input type="radio" autocomplete="off" name="radio_MLEFKMXLLM" value=""></input> <span>Yes, right-skewed</span></label><label><input type="radio" autocomplete="off" name="radio_MLEFKMXLLM" value="answer"></input> <span>Yes, left-skewed</span></label>
+</div>
+<p><br></p>
+</div>
+<div id="exercise-2" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> <strong>Exercise 2</strong><a href="exploratory-data-analysis.html#exercise-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Create a boxplot of <code>score</code> against <code>rank</code> to explore any relationship.</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="exploratory-data-analysis.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ???, <span class="fu">aes</span>(???)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="exploratory-data-analysis.html#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(???) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="exploratory-data-analysis.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>()</span></code></pre></div>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="exploratory-data-analysis.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> evals, <span class="fu">aes</span>(<span class="at">x =</span> score, <span class="at">y =</span> rank)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="exploratory-data-analysis.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;steelblue2&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb6-3"><a href="exploratory-data-analysis.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_flip</span>()</span></code></pre></div>
+</div>
+<p><br></p>
+<p><strong>What are the values that are used when creating a boxplot? (There are multiple correct answers)</strong></p>
+<div id="radio_AUOZGVYTEZ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value=""></input> <span>Variance</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value=""></input> <span>Mean</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value="answer"></input> <span>3rd Quartile</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value=""></input> <span>Standard Deviation</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value="answer"></input> <span>Median</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value="answer"></input> <span>Minimum</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value="answer"></input> <span>1st Quartile</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value=""></input> <span>Mode</span></label><label><input type="radio" autocomplete="off" name="radio_AUOZGVYTEZ" value="answer"></input> <span>Maximum</span></label>
+</div>
+<p><br></p>
+<p><strong>Which of the ranks corrensponds to the highest average score?</strong></p>
+<div id="radio_DYQOCAEOZO" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_DYQOCAEOZO" value="answer"></input> <span>Teaching</span></label><label><input type="radio" autocomplete="off" name="radio_DYQOCAEOZO" value=""></input> <span>Tenure-track</span></label><label><input type="radio" autocomplete="off" name="radio_DYQOCAEOZO" value=""></input> <span>Tenured</span></label>
+</div>
+<p><br></p>
+<p><strong>Which of the boxplots has the largest spread?</strong></p>
+<div id="radio_XDDZBBREJJ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_XDDZBBREJJ" value=""></input> <span>Tenured</span></label><label><input type="radio" autocomplete="off" name="radio_XDDZBBREJJ" value="answer"></input> <span>Tenure-track</span></label><label><input type="radio" autocomplete="off" name="radio_XDDZBBREJJ" value=""></input> <span>Teaching</span></label>
+</div>
+<p><br></p>
+<p>Create a boxplot of <code>score</code> against <code>ethnicity</code> to explore any relationship, also using colours to distinguish between the different values of <code>gender</code>.</p>
+<div class="webex-solution">
+<button>
+Hint
+</button>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="exploratory-data-analysis.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> ???, <span class="fu">aes</span>(???)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="exploratory-data-analysis.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(???)</span></code></pre></div>
+</div>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="exploratory-data-analysis.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> evals, <span class="fu">aes</span>(<span class="at">x =</span> ethnicity, <span class="at">y =</span> score )) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="exploratory-data-analysis.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> gender))</span></code></pre></div>
+</div>
+<p><br></p>
+<p><strong>Does it appear that different ethnic groups have a similar average score for both men and women?</strong></p>
+<div id="radio_VQAOIXSFOQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_VQAOIXSFOQ" value=""></input> <span>Yes</span></label><label><input type="radio" autocomplete="off" name="radio_VQAOIXSFOQ" value="answer"></input> <span>No</span></label>
+</div>
+<p><br></p>
+<p><strong>Does it appear there is a effect for <code>gender</code> within the ethnicity variable?</strong></p>
+<div id="radio_ZEZMUXNKXQ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZEZMUXNKXQ" value=""></input> <span>No</span></label><label><input type="radio" autocomplete="off" name="radio_ZEZMUXNKXQ" value="answer"></input> <span>Yes</span></label>
+</div>
+<p><br></p>
+<p><strong>Which boxplot would you think has the greatest variablility?</strong></p>
+<div id="radio_YWZZHOOEJZ" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_YWZZHOOEJZ" value="answer"></input> <span>Not Minority Ethnicity Female</span></label><label><input type="radio" autocomplete="off" name="radio_YWZZHOOEJZ" value=""></input> <span>Minority Ethnicity Male</span></label><label><input type="radio" autocomplete="off" name="radio_YWZZHOOEJZ" value=""></input> <span>Minority Ethnicity Female</span></label><label><input type="radio" autocomplete="off" name="radio_YWZZHOOEJZ" value=""></input> <span>Not Minority Ethnicity Male</span></label>
+</div>
+<p><br></p>
+
+</div>
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-linear-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

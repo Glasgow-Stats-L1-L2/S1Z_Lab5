@@ -1,0 +1,37 @@
+# Serial Correlation 
+
+<br>
+
+In order to investigate any temporal trend in LSWT, a linear regression model could be fitted, however this model assumes that the observations are independent. This is often not the case in environmental data due to the presence of serial correlation.   
+
+To investigate serial correlation, the sample autocorrelation function (ACF) can be used. The sample ACF is the collection of sample correlation coefficients that correspond to the cross-correlation of the data with itself at a series of different lags in time. It was defined in lectures as: 
+
+
+$$r(k)=\frac{\sum_{t=k+1}^{n} (x_t-\bar{x})(x_{t-k}-\bar{x})}{\sum_{t=1}^n(x_t-\bar{x})^2} $$
+To obtain a sample ACF plot in **R**, we can use the `acf` function:
+
+```{r ACF, eval = TRUE}
+acf(lswt, main="ACF of LSWT at Lake Balaton", xlab="Lag (months)")
+```
+
+<br>
+
+**What does the ACF indicate?**
+
+```{r, echo = FALSE}
+q_acf1 <- sample(c(
+    "the absence of autocorrelation",
+    answer = "the presence of autocorrelation"
+)
+)
+```
+
+`r longmcq(q_acf1)`
+
+<br>
+
+**Looking at the ACF, what is the period of the seasonal pattern in the time series? (In months).**
+
+`r fitb(12)`
+
+<br>
