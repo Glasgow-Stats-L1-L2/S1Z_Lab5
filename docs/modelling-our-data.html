@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3 Modelling our Data | S1Z Lab 5 - Logistic Regression</title>
   <meta name="description" content="3 Modelling our Data | S1Z Lab 5 - Logistic Regression" />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3 Modelling our Data | S1Z Lab 5 - Logistic Regression" />
   <meta property="og:type" content="book" />
@@ -117,10 +117,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 <link rel="stylesheet" href="include/webex.css" type="text/css" />
@@ -173,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="modelling-our-data" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">3</span> Modelling our Data<a href="modelling-our-data.html#modelling-our-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><img src="Images/datamodelling.jpg" width="100%" /></p>
-<p>We would like to fit a model that estimates using multiple explanatory variables. Our response variable is the binary variable TenYearCHD: whether a patient developed coronary heart disease over the following 10 years, where Yes=0 and No =1.</p>
+<p>We would like to fit a model that estimates heart disease risk using multiple explanatory variables. Our response variable is the binary variable TenYearCHD: whether a patient developed coronary heart disease over 10 years, where Yes=0 and No =1.</p>
 <p><strong>What distribution do we expect our response variable to take?</strong></p>
 <div id="radio_TMUKENQZJO" class="webex-radiogroup">
 <label><input type="radio" autocomplete="off" name="radio_TMUKENQZJO" value=""></input> <span>Normal Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_TMUKENQZJO" value="answer"></input> <span>Binomial Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_TMUKENQZJO" value=""></input> <span>Exponential Distribution</span></label>
@@ -183,12 +179,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As our response is a categorical variable we will need to use a generalized linear mixed model (GLM), specifically one with a logit function as our response is binary (0 or 1) and therefore we can assume binomially distributed.</p>
 <p><span class="math display">\[\boxed{g(p)=log(\frac{p_i}{1-p_i})=\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki}}\]</span></p>
 <p>The code to build and view a model that uses all 6 variables to predict the log odds of ten-year CHD is:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="modelling-our-data.html#cb16-1" tabindex="-1"></a>logistic_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>education<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> HEARTDISEASE)</span>
-<span id="cb16-2"><a href="modelling-our-data.html#cb16-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_model)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="modelling-our-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a>logistic_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>education<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> HEARTDISEASE)</span>
+<span id="cb16-2"><a href="modelling-our-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = TenYearCHD ~ male + age + education + cigsPerDay + 
 ##     diabetes + sysBP, family = &quot;binomial&quot;, data = HEARTDISEASE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.4844  -0.5963  -0.4310  -0.2959   2.7973  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
@@ -220,18 +220,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Solution
 </button>
 <p>Since the variable <code>education</code> does not seem to be a significant predictor of ten-year CHD risk, we could build the model without it.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelling-our-data.html#cb18-1" tabindex="-1"></a>logistic_model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> HEARTDISEASE)</span>
-<span id="cb18-2"><a href="modelling-our-data.html#cb18-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_model2)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelling-our-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a>logistic_model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> HEARTDISEASE)</span>
+<span id="cb18-2"><a href="modelling-our-data.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic_model2)</span></code></pre></div>
 </div>
 <p>Lets use the following model to learn more about CHD risk:</p>
 <p><code>CHD_model &lt;- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)</code></p>
 <p><br></p>
 <p>First, let's use the <code>summary()</code> function to produce a summary of the model output.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="modelling-our-data.html#cb19-1" tabindex="-1"></a><span class="fu">summary</span>(CHD_model)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="modelling-our-data.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(CHD_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = TenYearCHD ~ male + age + cigsPerDay + diabetes + 
 ##     sysBP, family = &quot;binomial&quot;, data = HEARTDISEASE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.4820  -0.5963  -0.4305  -0.2965   2.7987  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
