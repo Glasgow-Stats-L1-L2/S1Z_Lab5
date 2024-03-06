@@ -60,7 +60,7 @@ We can work out the odds of CHD risk for a 42 year old male patient who smokes 1
 ```{r}
 exp(-7.944 + 0.457*1 + 0.066*42 + 0.021*15 + 0.783*0 + 0.017*190)
 ```
-Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.310. As a fractional odds \(0.310 = 310/1000\) so for every 1000 people with these characteristics who would not develop CHD over 10 years, another 310 people would.
+Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.310.
 
 <br>
 
@@ -74,7 +74,7 @@ Patient 1:
 * has diabetes
 * systolic blood pressure of 90
 
-The odds are `r fitb(0.050)`. For every 1000 people with these characteristics who would not have a 10 year CHD risk, `r fitb(50)` people would.
+The odds are `r fitb(0.050)`.
 
 `r hide("Solution")`
 ```{r}
@@ -92,7 +92,7 @@ Patient 2:
 * does not have diabetes
 * systolic blood pressure of 160
 
-The odds are `r fitb(0.283)`. For every 1000 people with these characteristics who would not have a 10 year CHD risk, `r fitb(283)` people would.
+The odds are `r fitb(0.283)`.
 
 `r hide("Solution")`
 ```{r}
