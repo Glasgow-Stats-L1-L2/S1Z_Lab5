@@ -1,0 +1,11 @@
+welcome-to-s1z-lab-5---logistic-regression
+intended-learning-outcomes
+an-introdution-to-logistic-regression-modeling
+introducing-the-data
+modelling-our-data
+interpreting-our-model
+interpreting-coefficients
+calculating-odds
+calculating-probabilities
+group-exercise
+tasks

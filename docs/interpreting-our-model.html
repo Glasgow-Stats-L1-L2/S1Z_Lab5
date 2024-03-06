@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Interpreting our model | S1Z Lab 5 - Logistic Regression</title>
+  <meta name="description" content="4 Interpreting our model | S1Z Lab 5 - Logistic Regression" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Interpreting our model | S1Z Lab 5 - Logistic Regression" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Interpreting our model | S1Z Lab 5 - Logistic Regression" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelling-our-data.html"/>
+<link rel="next" href="group-exercise.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="include/webex.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to S1Z Lab 5 - Logistic Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#intended-learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Intended Learning Outcomes:</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#an-introdution-to-logistic-regression-modeling"><i class="fa fa-check"></i><b>1.2</b> An Introdution to Logistic Regression Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introducing-the-data.html"><a href="introducing-the-data.html"><i class="fa fa-check"></i><b>2</b> Introducing the Data</a></li>
+<li class="chapter" data-level="3" data-path="modelling-our-data.html"><a href="modelling-our-data.html"><i class="fa fa-check"></i><b>3</b> Modelling our Data</a></li>
+<li class="chapter" data-level="4" data-path="interpreting-our-model.html"><a href="interpreting-our-model.html"><i class="fa fa-check"></i><b>4</b> Interpreting our model</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="interpreting-our-model.html"><a href="interpreting-our-model.html#interpreting-coefficients"><i class="fa fa-check"></i><b>4.1</b> Interpreting Coefficients</a></li>
+<li class="chapter" data-level="4.2" data-path="interpreting-our-model.html"><a href="interpreting-our-model.html#calculating-odds"><i class="fa fa-check"></i><b>4.2</b> Calculating Odds</a></li>
+<li class="chapter" data-level="4.3" data-path="interpreting-our-model.html"><a href="interpreting-our-model.html#calculating-probabilities"><i class="fa fa-check"></i><b>4.3</b> Calculating probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="group-exercise.html"><a href="group-exercise.html"><i class="fa fa-check"></i><b>5</b> Group Exercise</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="group-exercise.html"><a href="group-exercise.html#tasks"><i class="fa fa-check"></i><b>5.1</b> Tasks</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">S1Z Lab 5 - Logistic Regression</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="interpreting-our-model" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Interpreting our model<a href="interpreting-our-model.html#interpreting-our-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="Images/model.jpg" width="100%" /></p>
+<p><span class="math display">\[\boxed{\begin{align} log \left( \frac{p_i}{1-p_i} \right) &amp;= -7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay}\\&amp; \hspace{0.5cm}  + 0.783 \text{ diabetes} + 0.017 \text{ sysBP}\end{align}}\]</span></p>
+<p><br></p>
+<div id="interpreting-coefficients" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Interpreting Coefficients<a href="interpreting-our-model.html#interpreting-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we have a model equation, we can investigate the model coefficients. Our model estimates the log-odds, <span class="math inline">\(log \left( \frac{p_i}{1-p_i} \right)\)</span>, of developing CHD in the next 10-years.
+The <span class="math inline">\(\beta_i\)</span> coefficients are <strong>log odds ratios</strong>, however given that these are on the log scale they are not particularly intuitive to interpret. Instead we can take the exponential, <span class="math inline">\(\exp(\beta_i)\)</span>, to get the <strong>odds ratio</strong>.</p>
+<p>For example, for the variable <code>male</code>, the odds ratio is:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="interpreting-our-model.html#cb21-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.457</span>)</span></code></pre></div>
+<pre><code>## [1] 1.579329</code></pre>
+<p>This tells us that the odds of getting diagnosed with heart disease in the next 10 years for males over that for females, when all other variables are held constant, is <span class="math inline">\(\exp(0.457) = 1.579\)</span>. In terms of percent change, we can say that the odds of CHD diagnosis in the next 10 years for males are 57.9% higher than the odds for females.</p>
+<p><br></p>
+<p>For the variable <code>age</code>, the odds ratio is:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="interpreting-our-model.html#cb23-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.066</span>)</span></code></pre></div>
+<pre><code>## [1] 1.068227</code></pre>
+<p>This means that, holding all other variables constant, we will see 7% increase in the odds of getting diagnosed with CHD in the next 10 years for a one year increase in age since <span class="math inline">\(\exp(0.066) = 1.068\)</span></p>
+<p><br></p>
+<p><strong>Complete the following sentence for the interpretation of the coefficient for</strong> <code>cigsPerDay</code>:</p>
+<p>There is a <select class='webex-select'><option value='blank'></option><option value=''>4%</option><option value='answer'>2%</option><option value=''>8%</option></select> <select class='webex-select'><option value='blank'></option><option value='answer'>increase</option><option value=''>decrease</option></select> in the odds of getting diagnosed with CHD for <select class='webex-select'><option value='blank'></option><option value=''>being a smoker</option><option value='answer'>each extra cigarette smoked per day</option></select>
+when all other variables are <select class='webex-select'><option value='blank'></option><option value='answer'>constant</option><option value=''>zero</option></select> since exp(<input class='webex-solveme nospaces' size='5' data-answer='["0.021",".021"]'/>)=<input class='webex-solveme nospaces' size='5' data-answer='["1.021"]'/></p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<p>For the variable <code>cigsPerDay</code>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="interpreting-our-model.html#cb25-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="fl">0.021</span>)</span></code></pre></div>
+<pre><code>## [1] 1.021222</code></pre>
+</div>
+</div>
+<div id="calculating-odds" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Calculating Odds<a href="interpreting-our-model.html#calculating-odds" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Odds are another way of quantifying the probability of an event and are calculated as <span class="math inline">\(\mbox{odds}=\frac{p}{1-p}\)</span>. In logistic regression, we model the log-odds <span class="math inline">\(\left( \log \frac{p_i}{1-p_i} \right)\)</span>. We can therefore calculate the odds by taking the exponential of the model equation:</p>
+<p><span class="math display">\[\boxed{ \begin{align} \frac{p_i}{1-p_i}&amp;=exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})\\ &amp;= exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} \\&amp; \hspace{0.5cm}+ 0.783 \text{ diabetes} + 0.017 \text{ sysBP}) \end{align}}\]</span></p>
+<p>We can work out the odds of CHD risk for a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190 as:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="interpreting-our-model.html#cb27-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">42</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">190</span>)</span></code></pre></div>
+<pre><code>## [1] 0.3103669</code></pre>
+<p>Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.310. As a fractional odds <span class="math inline">\(0.310 = 310/1000\)</span> so for every 1000 people with these characteristics who would not develop CHD over 10 years, another 310 people would.</p>
+<p><br></p>
+<p><strong>For the following patients, work out the odds of CHD risk (give any answers to 3 decimal places):</strong></p>
+<p>Patient 1:</p>
+<ul>
+<li>male</li>
+<li>aged 33</li>
+<li>0 cigarettes per day</li>
+<li>has diabetes</li>
+<li>systolic blood pressure of 90</li>
+</ul>
+<p>The odds are <input class='webex-solveme nospaces' size='4' data-answer='["0.05",".05"]'/>. For every 1000 people with these characteristics who would not have a 10 year CHD risk, <input class='webex-solveme nospaces' size='2' data-answer='["50"]'/> people would.</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="interpreting-our-model.html#cb29-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">33</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">90</span>)</span></code></pre></div>
+<pre><code>## [1] 0.04998662</code></pre>
+</div>
+<p><br></p>
+<p>Patient 2:</p>
+<ul>
+<li>female</li>
+<li>aged 60</li>
+<li>0 cigarettes per day</li>
+<li>does not have diabetes</li>
+<li>systolic blood pressure of 160</li>
+</ul>
+<p>The odds are <input class='webex-solveme nospaces' size='5' data-answer='["0.283",".283"]'/>. For every 1000 people with these characteristics who would not have a 10 year CHD risk, <input class='webex-solveme nospaces' size='3' data-answer='["283"]'/> people would.</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="interpreting-our-model.html#cb31-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">60</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">160</span>)</span></code></pre></div>
+<pre><code>## [1] 0.2825217</code></pre>
+</div>
+</div>
+<div id="calculating-probabilities" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Calculating probabilities<a href="interpreting-our-model.html#calculating-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To find predicted probabilities from our model we can take the inverse of the logit function:</p>
+<!-- \[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})} \end{align}}\] -->
+<p><span class="math display">\[\boxed{\begin{align} p_i&amp;=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &amp;=\frac{exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})} \end{align}}\]</span></p>
+<p>We can work out the probability of 10 year CHD risk for the 3 patients discussed above. For a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="interpreting-our-model.html#cb33-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">42</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">190</span>)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">42</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">190</span>))</span></code></pre></div>
+<pre><code>## [1] 0.236855</code></pre>
+<p>So the probability of having a ten-year CHD risk for a patient with these characteristics is 23.7%.</p>
+<p><br></p>
+<p><strong>For the other two patients, work out the probability of CHD risk (give any answers as a percentage to 1 decimal place):</strong></p>
+<p>Patient 1:</p>
+<ul>
+<li>male</li>
+<li>aged 33</li>
+<li>0 cigarettes per day</li>
+<li>has diabetes</li>
+<li>systolic blood pressure of 90</li>
+</ul>
+<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='3' data-answer='["4.8"]'/>%.</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="interpreting-our-model.html#cb35-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">33</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">90</span>)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">33</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">90</span>))</span></code></pre></div>
+<pre><code>## [1] 0.04760691</code></pre>
+</div>
+<p><br></p>
+<p>Patient 2:</p>
+<ul>
+<li>female</li>
+<li>aged 60</li>
+<li>0 cigarettes per day</li>
+<li>does not have diabetes</li>
+<li>systolic blood pressure of 160</li>
+</ul>
+<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='2' data-answer='["22"]'/>%.</p>
+<div class="webex-solution">
+<button>
+Solution
+</button>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="interpreting-our-model.html#cb37-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">60</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">160</span>)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.944</span> <span class="sc">+</span> <span class="fl">0.457</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.066</span><span class="sc">*</span><span class="dv">60</span> <span class="sc">+</span> <span class="fl">0.021</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.783</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017</span><span class="sc">*</span><span class="dv">160</span>))</span></code></pre></div>
+<pre><code>## [1] 0.2202861</code></pre>
+</div>
+
+</div>
+</div>
+<script>
+
+/* update total correct if #webex-total_correct exists */
+update_total_correct = function() {
+  console.log("webex: update total_correct");
+
+  if (t = document.getElementById("webex-total_correct")) {
+    var correct = document.getElementsByClassName("webex-correct").length;
+    var solvemes = document.getElementsByClassName("webex-solveme").length;
+    var radiogroups = document.getElementsByClassName("webex-radiogroup").length;
+    var selects = document.getElementsByClassName("webex-select").length;
+    
+    t.innerHTML = correct + " of " + (solvemes + radiogroups + selects) + " correct";
+  }
+}
+
+/* webex-solution button toggling function */
+b_func = function() {
+  console.log("webex: toggle hide");
+  
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  console.log("webex: check solveme");
+
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "")
+  }
+
+  if (my_answer == "") {
+    cl.remove("webex-correct");
+    cl.remove("webex-incorrect");
+  } else if (real_answers.includes(my_answer)) {
+    cl.add("webex-correct");
+    cl.remove("webex-incorrect");
+  } else {
+    cl.add("webex-incorrect");
+    cl.remove("webex-correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("webex-correct");
+    } else {
+      cl.remove("webex-correct");
+    }
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("webex-correct");
+    }
+  }
+
+  update_total_correct();
+}
+
+/* function for checking select answers */
+select_func = function(e) {
+  console.log("webex: check select");
+  
+  var cl = this.classList
+  
+  /* add style */
+  cl.remove("webex-incorrect");
+  cl.remove("webex-correct");
+  if (this.value == "answer") {
+    cl.add("webex-correct");
+  } else if (this.value != "blank") {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+/* function for checking radiogroups answers */
+radiogroups_func = function(e) {
+  console.log("webex: check radiogroups");
+
+  var checked_button = document.querySelector('input[name=' + this.id + ']:checked');
+  var cl = checked_button.parentElement.classList;
+  var labels = checked_button.parentElement.parentElement.children;
+  
+  /* get rid of styles */
+  for (i = 0; i < labels.length; i++) {
+    labels[i].classList.remove("webex-incorrect");
+    labels[i].classList.remove("webex-correct");
+  }
+  
+  /* add style */
+  if (checked_button.value == "answer") {
+    cl.add("webex-correct");
+  } else {
+    cl.add("webex-incorrect");
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  console.log("onload");
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('webex-solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+
+  /* set up webex-solveme inputs */
+  var solveme = document.getElementsByClassName("webex-solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off");
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  /* set up radiogroups */
+  var radiogroups = document.getElementsByClassName("webex-radiogroup");
+  for (var i = 0; i < radiogroups.length; i++) {
+    radiogroups[i].onchange = radiogroups_func;
+  }
+  
+  /* set up selects */
+  var selects = document.getElementsByClassName("webex-select");
+  for (var i = 0; i < selects.length; i++) {
+    selects[i].onchange = select_func;
+  }
+
+  update_total_correct();
+}
+
+</script>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelling-our-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="group-exercise.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

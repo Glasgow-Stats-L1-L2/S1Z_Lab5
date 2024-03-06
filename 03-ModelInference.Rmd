@@ -1,0 +1,156 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Interpreting our model
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("Images/model.jpg")
+```
+
+\[\boxed{\begin{align} log \left( \frac{p_i}{1-p_i} \right) &= -7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay}\\& \hspace{0.5cm}  + 0.783 \text{ diabetes} + 0.017 \text{ sysBP}\end{align}}\]
+
+<br>
+
+## Interpreting Coefficients
+
+Now we have a model equation, we can investigate the model coefficients. Our model estimates the log-odds, \(log \left( \frac{p_i}{1-p_i} \right)\), of developing CHD in the next 10-years. 
+The $\beta_i$ coefficients are **log odds ratios**, however given that these are on the log scale they are not particularly intuitive to interpret. Instead we can take the exponential, $\exp(\beta_i)$, to get the **odds ratio**.
+
+
+For example, for the variable `male`, the odds ratio is:
+```{r}
+exp(0.457)
+```
+This tells us that the odds of getting diagnosed with heart disease in the next 10 years for males over that for females, when all other variables are held constant, is $\exp(0.457) = 1.579$. In terms of percent change, we can say that the odds of CHD diagnosis in the next 10 years for males are 57.9% higher than the odds for females.
+
+<br>
+
+For the variable `age`, the odds ratio is:
+```{r}
+exp(0.066)
+```
+This means that, holding all other variables constant, we will see 7% increase in the odds of getting diagnosed with CHD in the next 10 years for a one year increase in age since $\exp(0.066) = 1.068$
+
+<br>
+
+**Complete the following sentence for the interpretation of the coefficient for** `cigsPerDay`:
+
+There is a `r mcq(c("4%", answer="2%", "8%"))` `r mcq(c(answer="increase", "decrease"))` in the odds of getting diagnosed with CHD for `r mcq(c("being a smoker", answer="each extra cigarette smoked per day"))`
+ when all other variables are `r mcq(c(answer="constant", "zero"))` since exp(`r fitb(0.021)`)=`r fitb(1.021)`
+
+
+`r hide("Solution")`
+For the variable `cigsPerDay`:
+```{r}
+exp(0.021)
+```
+`r unhide()`
+
+
+## Calculating Odds
+
+Odds are another way of quantifying the probability of an event and are calculated as $\mbox{odds}=\frac{p}{1-p}$. In logistic regression, we model the log-odds $\left( \log \frac{p_i}{1-p_i} \right)$. We can therefore calculate the odds by taking the exponential of the model equation:
+
+\[\boxed{ \begin{align} \frac{p_i}{1-p_i}&=exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})\\ &= exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} \\& \hspace{0.5cm}+ 0.783 \text{ diabetes} + 0.017 \text{ sysBP}) \end{align}}\]
+
+
+We can work out the odds of CHD risk for a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190 as:
+```{r}
+exp(-7.944 + 0.457*1 + 0.066*42 + 0.021*15 + 0.783*0 + 0.017*190)
+```
+Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.310. As a fractional odds \(0.310 = 310/1000\) so for every 1000 people with these characteristics who would not develop CHD over 10 years, another 310 people would.
+
+<br>
+
+**For the following patients, work out the odds of CHD risk (give any answers to 3 decimal places):**
+
+Patient 1:
+
+* male
+* aged 33
+* 0 cigarettes per day
+* has diabetes
+* systolic blood pressure of 90
+
+The odds are `r fitb(0.050)`. For every 1000 people with these characteristics who would not have a 10 year CHD risk, `r fitb(50)` people would.
+
+`r hide("Solution")`
+```{r}
+exp(-7.944 + 0.457*1 + 0.066*33 + 0.021*0 + 0.783*1 + 0.017*90)
+```
+`r unhide()`
+
+<br>
+
+Patient 2:
+
+* female
+* aged 60
+* 0 cigarettes per day
+* does not have diabetes
+* systolic blood pressure of 160
+
+The odds are `r fitb(0.283)`. For every 1000 people with these characteristics who would not have a 10 year CHD risk, `r fitb(283)` people would.
+
+`r hide("Solution")`
+```{r}
+exp(-7.944 + 0.457*0 + 0.066*60 + 0.021*0 + 0.783*0 + 0.017*160)
+```
+`r unhide()`
+
+
+## Calculating probabilities
+
+To find predicted probabilities from our model we can take the inverse of the logit function:
+
+<!-- \[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})} \end{align}}\] -->
+
+\[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})} \end{align}}\]
+
+We can work out the probability of 10 year CHD risk for the 3 patients discussed above. For a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190:
+```{r}
+exp(-7.944 + 0.457*1 + 0.066*42 + 0.021*15 + 0.783*0 + 0.017*190)/(1+exp(-7.944 + 0.457*1 + 0.066*42 + 0.021*15 + 0.783*0 + 0.017*190))
+```
+So the probability of having a ten-year CHD risk for a patient with these characteristics is 23.7%. 
+
+<br>
+
+**For the other two patients, work out the probability of CHD risk (give any answers as a percentage to 1 decimal place):**
+
+Patient 1:
+
+* male
+* aged 33
+* 0 cigarettes per day
+* has diabetes
+* systolic blood pressure of 90
+
+
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(4.8)`%. 
+
+
+`r hide("Solution")`
+```{r}
+exp(-7.944 + 0.457*1 + 0.066*33 + 0.021*0 + 0.783*1 + 0.017*90)/(1+exp(-7.944 + 0.457*1 + 0.066*33 + 0.021*0 + 0.783*1 + 0.017*90))
+```
+`r unhide()`
+
+<br>
+
+Patient 2:
+
+* female
+* aged 60
+* 0 cigarettes per day
+* does not have diabetes
+* systolic blood pressure of 160
+
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(22)`%. 
+
+`r hide("Solution")`
+```{r}
+exp(-7.944 + 0.457*0 + 0.066*60 + 0.021*0 + 0.783*0 + 0.017*160)/(1+exp(-7.944 + 0.457*0 + 0.066*60 + 0.021*0 + 0.783*0 + 0.017*160))
+```
+`r unhide()`

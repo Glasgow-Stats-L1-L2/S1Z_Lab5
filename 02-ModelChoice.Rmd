@@ -1,0 +1,75 @@
+# Modelling our Data
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("Images/datamodelling.jpg")
+```
+
+We would like to fit a model that estimates heart disease risk using multiple explanatory variables. Our response variable is the binary variable TenYearCHD: whether a patient developed coronary heart disease over 10 years, where Yes=0 and No =1.
+
+
+**What distribution do we expect our response variable to take?**
+```{r, echo = FALSE}
+mcq1 <- c("Normal Distribution", 
+answer = "Binomial Distribution", "Exponential Distribution")
+```
+`r longmcq(mcq1)`
+
+<br>
+
+<br>
+
+As our response is a categorical variable we will need to use a generalized linear mixed model (GLM), specifically one with a logit function as our response is binary (0 or 1) and therefore we can assume binomially distributed.
+
+
+\[\boxed{g(p)=log(\frac{p_i}{1-p_i})=\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki}}\]
+
+
+The code to build and view a model that uses all 6 variables to predict the log odds of ten-year CHD is:
+
+```{r}
+logistic_model <- glm(TenYearCHD~male+age+education+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)
+summary(logistic_model)
+```
+<br>
+
+**Looking the p-values for each variable, do you think there are any that are not significant predictors of CHD that could be removed from the model?**
+`r fitb("education")`
+
+<br>
+
+**Task 1**
+
+Using the code above try to make the model again but with only the variables that you think are significant:
+
+`r hide("Solution")`
+Since the variable `education` does not seem to be a significant predictor of ten-year CHD risk, we could build the model without it.
+```{r, eval=FALSE}
+logistic_model2 <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)
+summary(logistic_model2)
+```
+`r unhide()`
+
+
+Lets use the following model to learn more about CHD risk:
+
+`CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)`
+
+<br>
+
+```{r, eval=TRUE,echo=FALSE}
+CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)
+```
+
+First, let's use the `summary()` function to produce a summary of the model output.
+```{r, eval=TRUE,echo=TRUE}
+summary(CHD_model)
+```
+
+**Task 2**
+
+Based on this output, what is the equation of the logistic regression model? *(Answers to 3 decimal places)*
+
+<!-- <center> \(log(\frac{p_i}{1-p_i})\) = `r fitb(-7.960)` + `r fitb(0.460)` `male` + `r fitb(0.066)` `age` + `r fitb(0.021)` `cigsPerDay` + `r mcq(c("0.002",answer="0.782", "0.220"))` `diabetes` + `r mcq(c("0.002",answer="0.017", "0.021"))` `sysBP`</center> -->
+
+<center> \(log(\frac{p_i}{1-p_i})\) = `r mcq(c(answer="-7.944","0.377", "-21.054"))` + `r mcq(c(answer="0.457","0.377", "-7.944"))` `male` + 0.066 `r mcq(c(answer="age","cigsPerDay", "diabetes"))` + `r mcq(c("-7.944","0.004", answer="0.021"))` `cigsPerDay` + 0.783 `r mcq(c("age","cigsPerDay", answer="diabetes"))` + `r mcq(c("0.002",answer="0.017", "0.020"))` `sysBP`</center>
+

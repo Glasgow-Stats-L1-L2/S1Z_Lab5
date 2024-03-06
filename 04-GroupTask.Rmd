@@ -1,0 +1,59 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Group Exercise
+
+```{r, echo = FALSE, out.width = "100%", fig.cap = ""}
+knitr::include_graphics("Images/diabetes.jpg")
+```
+
+In the group exercise today, we will explore the variables that contribute to diabetes. The data was collected and made available by “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females of ages 21 and above. The goal is to build a model that can explain  the occurrence of diabetes in a patient from a selection of collected variables. The dataset provides the patients’ information. It includes over 750 records and 6 attributes.
+
+* **Pregnancies** : Number of times the patient has been pregnant (Numerical - integer)
+
+* **Glucose** : Plasma glucose concentration after 2 hours in an oral glucose tolerance test (Numerical - integer).	
+
+* **BloodPressure** : Diastolic blood pressure (mm Hg) (Numerical - integer)
+
+* **DiabetesPedigreeFunction** : An existing function that measures genetic influence that estimates the likelihood of diabetes based on the subject’s age and diabetic family history (Continuous)
+
+* **age** : Age of the patient (Continuous - Although the recorded ages have been truncated to whole numbers, the concept of age is continuous).	
+
+* **Outcome** : Binary variable of whether a patient has diabetes or not (Binary - Yes = 1 or No = 0)
+
+<br>
+
+Load the `DIABETES` data set into your workspace by typing the following code in an Rscript file in your local Rstudio.
+
+```{r, eval = FALSE, echo = TRUE}
+DIABETES<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/DIABETES.csv"))
+```
+
+You may also download the dataset named `DIABETES.csv` file from our Moodle course page. Save the file in your local computer and then use the `read.csv()` function to import the data in your R. You can load the data set into your workspace by running the code below in an Rscript file in your local Rstudio. Make sure that the `DIABETES.csv` file is saved in the same folder as the Rscript file.
+
+
+
+## Tasks
+
+1. Remove missing values from the data set and then produce a boxplot of to investigate whether patients with diabetes appear to have higher plasma glucose concentration after 2 hours in an oral glucose tolerance test.
+
+2. Fit the full model using `Outcome` as the response variable and all the remaining collected variables as explanatory variables.
+
+3. Refine the model by removing the variable with the largest p-value and re-evaluating the summary and repeat until all predictors are significant. Write down the equation of your refined model.
+
+4. Calculate the odds ratio of the variable `Glucose` and interpret it in context. Repeat this for the variable `Pregnancies`.
+
+5. For the following two patients, find out the odds of that patient having diabetes and the corresponding probability \(p_i\). Interpret both in context.
+
++ Patient 1 
+  - 1 pregnancy
+  - a glucose concentration of 73
+  - a diabetes pedigree function of 0.124
+
++ Patient 2 
+  - 3 pregnancies
+  - a glucose concentration of 145
+  - a diabetes pedigree function of 0.891
+

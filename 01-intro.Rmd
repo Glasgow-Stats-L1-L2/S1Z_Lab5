@@ -1,0 +1,146 @@
+# Introducing the Data
+
+```{r, echo = FALSE, out.width = "75%", fig.cap = ""}
+knitr::include_graphics("Images/heartdisease.jpg")
+```
+
+Today we will explore the variables that contribute to heart disease. We will be looking at data from an ongoing cardiovascular study on residents of the town of Framingham, Massachusetts. The goal is to predict the probability of a patient developing coronary heart disease (CHD) over the next ten years based on multiple explanatory variables. The dataset provides the patients’ information. It includes over 4,000 records and 7 attributes.
+
+Load the `HEARTDISEASE` data set into your workspace by typing the following code in an Rscript file in your local Rstudio.
+
+```{r, eval = FALSE, echo = TRUE}
+HEARTDISEASE<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HEARTDISEASE.csv"))
+```
+
+You may also download the dataset named `HEARTDISEASE.csv` file from our Moodle course page. Save the file in your local computer and then use the `read.csv()` function to import the data in your R. You can load the data set into your workspace by running the code below in an Rscript file in your local Rstudio. Make sure that the `HEARTDISEASE.csv` file is saved in the same folder as the Rscript file.
+
+The 7 variables are:
+
+* **male** : Sex of the patient (Nominal - male = 1 or female = 0) 
+
+* **age** : Age of the patient (Continuous - Although the recorded ages have been truncated to whole numbers, the concept of age is continuous).	
+
+* **education** : Years of schooling of the patient (Continuous - Although the recorded years have been truncated to whole numbers, the concept of years is continuous)
+
+* **cigsPerDay** : The number of cigarettes that the person smoked on average in one day (Continuous - the recorded cigarettes have been truncated to whole numbers but can be considered continuous as one can have part cigarettes)
+
+* **diabetes** : Whether or not the patient had diabetes (Nominal - No = 0 or Yes = 1)
+
+* **sysBP** : Systolic blood pressure (Continuous)
+
+* **TenYearCHD** :10 year risk of CHD, i.e. whether a patient developed coronary heart disease over the next 10 years (Binary - Yes = 1 or No = 0)
+
+<br>
+
+<br>
+
+First of all, it is always a good idea to look at the dataset you are working with.
+
+Copy and run the code below to look at the first 6 rows of data and the structure of it.
+
+```{r, echo=TRUE, eval=FALSE}
+head(HEARTDISEASE)
+str(HEARTDISEASE)
+```
+
+<br>
+
+**How many observations/rows are there in the entire data set?**
+`r fitb(4238)`
+
+`r hide("Hint")`
+Look again at the result of the `str()` function.
+`r unhide()`
+
+<br>
+
+<br>
+
+
+It is also worth checking if there are missing values in this data set.
+
+To find how many observations we are missing from the weight variable you can run the following R code:
+
+```{r, echo=TRUE, eval=TRUE}
+sum(is.na(HEARTDISEASE))
+```
+
+The `is.na()` function creates a vector that corresponds to the variable provided, with `TRUE` for a missing value and `FALSE` for a non-missing value. The `sum()` function then adds up the elements in this created vector such that `TRUE` is equivalent to 1 and `FALSE` is equivalent to 0 and hence the sum of this vector is equivalent to the number of `TRUE` entries which calculates how many of these "NA" values there are.
+
+
+**How many observations are we missing from the dataset?**
+`r fitb(135)`
+
+
+
+
+We can remove observations with missing values and create a data set without these using the code below:
+
+```{r, echo=TRUE, eval=FALSE}
+HEARTDISEASE <- na.omit(HEARTDISEASE)
+```
+
+
+
+**How many observations/rows are there in the new entire data set (with missing values removed)?**
+`r fitb(4105)`
+
+
+<br>
+
+<br>
+
+We could investigate the number of people in the trial.
+
+For the categorical data of sex, `table()` and `prop.table()` can be handy.
+```{r, echo=TRUE, eval=TRUE}
+sextable <- table(HEARTDISEASE$male)
+sextable
+```
+```{r, echo=TRUE, eval=TRUE}
+prop.table(sextable)
+```
+
+<br>
+
+We can expand the use of tables to separate by men and women with risk of heart disease.
+
+```{r, echo=TRUE, eval=TRUE}
+sex_heartdisease_table <- table(HEARTDISEASE$male, HEARTDISEASE$TenYearCHD, dnn = c("male","TenYearCHD"))
+sex_heartdisease_table
+```
+
+```{r, echo=TRUE, eval=TRUE}
+prop.table(sex_heartdisease_table, margin = 1) 
+
+#this sums the proportion to 1 across the rows. margin=2 would change this to across the columns.
+```
+
+**What proportion of women were at risk of heart disease risk after 10 years (to 2 decimal places)?**
+`r fitb(12.62)`%
+
+<br>
+
+**What proportion of men were at risk of heart disease risk after 10 years (to 2 decimal places)?**
+`r fitb(18.72)`%
+
+
+<br>
+
+For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.
+
+```{r, echo=TRUE, eval=TRUE}
+ggplot(HEARTDISEASE, aes(x = TenYearCHD, y = age, fill = as.factor(TenYearCHD))) +
+  geom_boxplot() +
+  labs(x = "Heart Disease Risk", y = "Age", fill = "Heart Disease")
+```
+
+<br>
+
+**From the boxplot, do the patients with ten year risk of heart disease appear to have a higher or lower median age? **
+```{r, echo = FALSE}
+mcq0 <- c(answer= "Higher", "Lower")
+```
+`r longmcq(mcq0)`
+
+
