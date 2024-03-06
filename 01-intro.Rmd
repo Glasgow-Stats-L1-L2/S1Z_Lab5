@@ -9,10 +9,10 @@ Today we will explore the variables that contribute to heart disease. We will be
 Load the `HEARTDISEASE` data set into your workspace by typing the following code in an Rscript file in your local Rstudio.
 
 ```{r, eval = FALSE, echo = TRUE}
-HEARTDISEASE<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HEARTDISEASE.csv"))
+HEARTDISEASE<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HeartDisease.csv"))
 ```
 
-You may download the dataset named `HEARTDISEASE.csv` file from our Moodle course page. Once the file has downloaded, **save it in the same folder** as the `R` script file you created and saved for this lab. You should now set your working directory to this location by clicking `Session > Set Working Directory > To Source File Location`. You can load the data set into your workspace by running `HEARTDISEASE <- read.csv("HEARTDISEASE.csv")`. 
+You may download the dataset named `HeartDisease.csv` file from our Moodle course page. Once the file has downloaded, **save it in the same folder** as the `R` script file you created and saved for this lab. You should now set your working directory to this location by clicking `Session > Set Working Directory > To Source File Location`. You can load the data set into your workspace by running `HEARTDISEASE <- read.csv("HeartDisease.csv")`. 
 
 The 7 variables are:
 
@@ -130,7 +130,7 @@ prop.table(sex_heartdisease_table, margin = 1)
 For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.
 
 ```{r, echo=TRUE, eval=TRUE}
-ggplot(HEARTDISEASE, aes(x = TenYearCHD, y = age, fill = as.factor(TenYearCHD))) +
+ggplot(HEARTDISEASE, aes(x = as.factor(TenYearCHD), y = age, fill = as.factor(TenYearCHD))) +
   geom_boxplot() +
   labs(x = "Heart Disease Risk", y = "Age", fill = "Heart Disease")
 ```

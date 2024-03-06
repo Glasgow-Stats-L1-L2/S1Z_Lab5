@@ -171,8 +171,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Images/heartdisease.jpg" width="75%" /></p>
 <p>Today we will explore the variables that contribute to heart disease. We will be looking at data from an ongoing cardiovascular study on residents of the town of Framingham, Massachusetts. The goal is to predict the probability of a patient developing coronary heart disease (CHD) over the next ten years based on multiple explanatory variables. The dataset provides the patients’ information. It includes over 4,000 records and 7 attributes.</p>
 <p>Load the <code>HEARTDISEASE</code> data set into your workspace by typing the following code in an Rscript file in your local Rstudio.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introducing-the-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a>HEARTDISEASE<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HEARTDISEASE.csv&quot;</span>))</span></code></pre></div>
-<p>You may download the dataset named <code>HEARTDISEASE.csv</code> file from our Moodle course page. Once the file has downloaded, <strong>save it in the same folder</strong> as the <code>R</code> script file you created and saved for this lab. You should now set your working directory to this location by clicking <code>Session &gt; Set Working Directory &gt; To Source File Location</code>. You can load the data set into your workspace by running <code>HEARTDISEASE &lt;- read.csv("HEARTDISEASE.csv")</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introducing-the-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a>HEARTDISEASE<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="fu">url</span>(<span class="st">&quot;https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HeartDisease.csv&quot;</span>))</span></code></pre></div>
+<p>You may download the dataset named <code>HeartDisease.csv</code> file from our Moodle course page. Once the file has downloaded, <strong>save it in the same folder</strong> as the <code>R</code> script file you created and saved for this lab. You should now set your working directory to this location by clicking <code>Session &gt; Set Working Directory &gt; To Source File Location</code>. You can load the data set into your workspace by running <code>HEARTDISEASE &lt;- read.csv("HeartDisease.csv")</code>.</p>
 <p>The 7 variables are:</p>
 <ul>
 <li><p><strong>male</strong> : Sex of the patient (Nominal - male = 1 or female = 0)</p></li>
@@ -219,24 +219,24 @@ Hint
 <span id="cb6-2"><a href="introducing-the-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>sextable</span></code></pre></div>
 <pre><code>## 
 ##    0    1 
-## 2310 1747</code></pre>
+## 2353 1753</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introducing-the-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sextable)</span></code></pre></div>
 <pre><code>## 
 ##         0         1 
-## 0.5693862 0.4306138</code></pre>
+## 0.5730638 0.4269362</code></pre>
 <p><br></p>
 <p>We can expand the use of tables to separate by men and women with risk of heart disease.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introducing-the-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table <span class="ot">&lt;-</span> <span class="fu">table</span>(HEARTDISEASE<span class="sc">$</span>male, HEARTDISEASE<span class="sc">$</span>TenYearCHD, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;TenYearCHD&quot;</span>))</span>
 <span id="cb10-2"><a href="introducing-the-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table</span></code></pre></div>
 <pre><code>##     TenYearCHD
 ## male    0    1
-##    0 2020  290
-##    1 1420  327</code></pre>
+##    0 2056  297
+##    1 1424  329</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introducing-the-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sex_heartdisease_table, <span class="at">margin =</span> <span class="dv">1</span>) </span></code></pre></div>
 <pre><code>##     TenYearCHD
 ## male         0         1
-##    0 0.8744589 0.1255411
-##    1 0.8128220 0.1871780</code></pre>
+##    0 0.8737782 0.1262218
+##    1 0.8123217 0.1876783</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introducing-the-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this sums the proportion to 1 across the rows. margin=2 would change this to across the columns.</span></span></code></pre></div>
 <p><strong>What proportion of women were at risk of heart disease risk after 10 years (to 2 decimal places)?</strong>
 <input class='webex-solveme nospaces' size='5' data-answer='["12.62"]'/>%</p>
@@ -245,7 +245,7 @@ Hint
 <input class='webex-solveme nospaces' size='5' data-answer='["18.72"]'/>%</p>
 <p><br></p>
 <p>For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introducing-the-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> TenYearCHD, <span class="at">y =</span> age, <span class="at">fill =</span> <span class="fu">as.factor</span>(TenYearCHD))) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introducing-the-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(TenYearCHD), <span class="at">y =</span> age, <span class="at">fill =</span> <span class="fu">as.factor</span>(TenYearCHD))) <span class="sc">+</span></span>
 <span id="cb15-2"><a href="introducing-the-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb15-3"><a href="introducing-the-data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heart Disease Risk&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Heart Disease&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>

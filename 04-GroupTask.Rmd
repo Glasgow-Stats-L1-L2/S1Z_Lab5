@@ -28,18 +28,18 @@ In the group exercise today, we will explore the variables that contribute to di
 Load the `DIABETES` data set into your workspace by typing the following code in an Rscript file in your local Rstudio.
 
 ```{r, eval = FALSE, echo = TRUE}
-DIABETES<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/DIABETES.csv"))
+DIABETES<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/diabetes.csv"))
 ```
 
-You may download the dataset named `DIABETES.csv` file from our Moodle course page. Once the file has downloaded, **save it in the same folder** as the `R` script file you created and saved for this lab. You should now set your working directory to this location by clicking `Session > Set Working Directory > To Source File Location`. You can load the data set into your workspace by running `DIABETES <- read.csv("DIABETES.csv")`. 
+You may download the dataset named `diabetes.csv` file from our Moodle course page. Once the file has downloaded, **save it in the same folder** as the `R` script file you created and saved for this lab. You should now set your working directory to this location by clicking `Session > Set Working Directory > To Source File Location`. You can load the data set into your workspace by running `DIABETES <- read.csv("diabetes.csv")`. 
 
 
 
 ## Tasks
 
-1. Remove missing values from the data set and then produce a boxplot of to investigate whether patients with diabetes appear to have higher plasma glucose concentration after 2 hours in an oral glucose tolerance test.
+1. Remove missing values from the data set and then produce a boxplot to investigate whether patients with diabetes appear to have higher plasma glucose concentration after 2 hours in an oral glucose tolerance test.
 
-2. Fit the full model using `Outcome` as the response variable and all the remaining collected variables as explanatory variables.
+2. Fit the full model using `Outcome` as the response variable and all the remaining variables as explanatory variables.
 
 3. Refine the model by removing the variable with the largest p-value and re-evaluating the summary and repeat until all predictors are significant. Write down the equation of your refined model.
 
