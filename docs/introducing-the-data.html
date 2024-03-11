@@ -203,51 +203,50 @@ Hint
 <p>It is also worth checking if there are missing values in this data set.</p>
 <p>To find how many observations we are missing from the weight variable you can run the following R code:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introducing-the-data.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(HEARTDISEASE))</span></code></pre></div>
-<pre><code>## [1] 0</code></pre>
 <p>The <code>is.na()</code> function creates a vector that corresponds to the variable provided, with <code>TRUE</code> for a missing value and <code>FALSE</code> for a non-missing value. The <code>sum()</code> function then adds up the elements in this created vector such that <code>TRUE</code> is equivalent to 1 and <code>FALSE</code> is equivalent to 0 and hence the sum of this vector is equivalent to the number of <code>TRUE</code> entries which calculates how many of these "NA" values there are.</p>
 <p><strong>How many observations are we missing from the dataset?</strong>
-<input class='webex-solveme nospaces' size='3' data-answer='["135"]'/></p>
+<input class='webex-solveme nospaces' size='3' data-answer='["134"]'/></p>
 <p>We can remove observations with missing values and create a data set without these using the code below:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introducing-the-data.html#cb5-1" aria-hidden="true" tabindex="-1"></a>HEARTDISEASE <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(HEARTDISEASE)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introducing-the-data.html#cb4-1" aria-hidden="true" tabindex="-1"></a>HEARTDISEASE <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(HEARTDISEASE)</span></code></pre></div>
 <p><strong>How many observations/rows are there in the new entire data set (with missing values removed)?</strong>
-<input class='webex-solveme nospaces' size='4' data-answer='["4105"]'/></p>
+<input class='webex-solveme nospaces' size='4' data-answer='["4106"]'/></p>
 <p><br></p>
 <p><br></p>
 <p>We could investigate the number of people in the trial.</p>
 <p>For the categorical data of sex, <code>table()</code> and <code>prop.table()</code> can be handy.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introducing-the-data.html#cb6-1" aria-hidden="true" tabindex="-1"></a>sextable <span class="ot">&lt;-</span> <span class="fu">table</span>(HEARTDISEASE<span class="sc">$</span>male)</span>
-<span id="cb6-2"><a href="introducing-the-data.html#cb6-2" aria-hidden="true" tabindex="-1"></a>sextable</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introducing-the-data.html#cb5-1" aria-hidden="true" tabindex="-1"></a>sextable <span class="ot">&lt;-</span> <span class="fu">table</span>(HEARTDISEASE<span class="sc">$</span>male)</span>
+<span id="cb5-2"><a href="introducing-the-data.html#cb5-2" aria-hidden="true" tabindex="-1"></a>sextable</span></code></pre></div>
 <pre><code>## 
 ##    0    1 
 ## 2353 1753</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introducing-the-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sextable)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introducing-the-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sextable)</span></code></pre></div>
 <pre><code>## 
 ##         0         1 
 ## 0.5730638 0.4269362</code></pre>
 <p><br></p>
 <p>We can expand the use of tables to separate by men and women with risk of heart disease.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introducing-the-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table <span class="ot">&lt;-</span> <span class="fu">table</span>(HEARTDISEASE<span class="sc">$</span>male, HEARTDISEASE<span class="sc">$</span>TenYearCHD, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;TenYearCHD&quot;</span>))</span>
-<span id="cb10-2"><a href="introducing-the-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introducing-the-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table <span class="ot">&lt;-</span> <span class="fu">table</span>(HEARTDISEASE<span class="sc">$</span>male, HEARTDISEASE<span class="sc">$</span>TenYearCHD, <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;TenYearCHD&quot;</span>))</span>
+<span id="cb9-2"><a href="introducing-the-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a>sex_heartdisease_table</span></code></pre></div>
 <pre><code>##     TenYearCHD
 ## male    0    1
 ##    0 2056  297
 ##    1 1424  329</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introducing-the-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sex_heartdisease_table, <span class="at">margin =</span> <span class="dv">1</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introducing-the-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(sex_heartdisease_table, <span class="at">margin =</span> <span class="dv">1</span>) </span></code></pre></div>
 <pre><code>##     TenYearCHD
 ## male         0         1
 ##    0 0.8737782 0.1262218
 ##    1 0.8123217 0.1876783</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introducing-the-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this sums the proportion to 1 across the rows. margin=2 would change this to across the columns.</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introducing-the-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#this sums the proportion to 1 across the rows. margin=2 would change this to across the columns.</span></span></code></pre></div>
 <p><strong>What proportion of women were at risk of heart disease risk after 10 years (to 2 decimal places)?</strong>
 <input class='webex-solveme nospaces' size='5' data-answer='["12.62"]'/>%</p>
 <p><br></p>
 <p><strong>What proportion of men were at risk of heart disease risk after 10 years (to 2 decimal places)?</strong>
-<input class='webex-solveme nospaces' size='5' data-answer='["18.72"]'/>%</p>
+<input class='webex-solveme nospaces' size='5' data-answer='["18.77"]'/>%</p>
 <p><br></p>
 <p>For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introducing-the-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(TenYearCHD), <span class="at">y =</span> age, <span class="at">fill =</span> <span class="fu">as.factor</span>(TenYearCHD))) <span class="sc">+</span></span>
-<span id="cb15-2"><a href="introducing-the-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb15-3"><a href="introducing-the-data.html#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heart Disease Risk&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Heart Disease&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introducing-the-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(TenYearCHD), <span class="at">y =</span> age, <span class="at">fill =</span> <span class="fu">as.factor</span>(TenYearCHD))) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="introducing-the-data.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="introducing-the-data.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heart Disease Risk&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Heart Disease&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><br></p>
 <p><strong>From the boxplot, do the patients with ten year risk of heart disease appear to have a higher or lower median age? </strong></p>

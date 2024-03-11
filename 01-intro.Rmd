@@ -61,7 +61,7 @@ It is also worth checking if there are missing values in this data set.
 
 To find how many observations we are missing from the weight variable you can run the following R code:
 
-```{r, echo=TRUE, eval=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 sum(is.na(HEARTDISEASE))
 ```
 
@@ -69,21 +69,21 @@ The `is.na()` function creates a vector that corresponds to the variable provide
 
 
 **How many observations are we missing from the dataset?**
-`r fitb(135)`
+`r fitb(134)`
 
 
 
 
 We can remove observations with missing values and create a data set without these using the code below:
 
-```{r, echo=TRUE, eval=FALSE}
+```{r, echo=TRUE, eval=TRUE}
 HEARTDISEASE <- na.omit(HEARTDISEASE)
 ```
 
 
 
 **How many observations/rows are there in the new entire data set (with missing values removed)?**
-`r fitb(4105)`
+`r fitb(4106)`
 
 
 <br>
@@ -122,7 +122,7 @@ prop.table(sex_heartdisease_table, margin = 1)
 <br>
 
 **What proportion of men were at risk of heart disease risk after 10 years (to 2 decimal places)?**
-`r fitb(18.72)`%
+`r fitb(18.77)`%
 
 
 <br>

@@ -52,11 +52,8 @@ summary(logistic_model2)
 
 Lets use the following model to learn more about CHD risk:
 
-`CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)`
 
-<br>
-
-```{r, eval=TRUE,echo=FALSE}
+```{r, eval=TRUE,echo=TRUE}
 CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)
 ```
 
@@ -71,5 +68,5 @@ Based on this output, what is the equation of the logistic regression model? *(A
 
 <!-- <center> \(log(\frac{p_i}{1-p_i})\) = `r fitb(-7.960)` + `r fitb(0.460)` `male` + `r fitb(0.066)` `age` + `r fitb(0.021)` `cigsPerDay` + `r mcq(c("0.002",answer="0.782", "0.220"))` `diabetes` + `r mcq(c("0.002",answer="0.017", "0.021"))` `sysBP`</center> -->
 
-<center> \(log(\frac{p_i}{1-p_i})\) = `r mcq(c(answer="-7.944","0.377", "-21.054"))` + `r mcq(c(answer="0.457","0.377", "-7.944"))` `male` + 0.066 `r mcq(c(answer="age","cigsPerDay", "diabetes"))` + `r mcq(c("-7.944","0.004", answer="0.021"))` `cigsPerDay` + 0.783 `r mcq(c("age","cigsPerDay", answer="diabetes"))` + `r mcq(c("0.002",answer="0.017", "0.020"))` `sysBP`</center>
+<center> \(log(\frac{p_i}{1-p_i})\) = `r mcq(c(answer="-7.960","0.377", "-21.104"))` + `r mcq(c(answer="0.460","0.098", "-7.960"))` `male` + 0.066 `r mcq(c(answer="age","cigsPerDay", "diabetes"))` + `r mcq(c("-7.960","0.004", answer="0.021"))` `cigsPerDay` + 0.782 `r mcq(c("age","cigsPerDay", answer="diabetes"))` + `r mcq(c("0.002",answer="0.017", "0.021"))` `sysBP`</center>
 

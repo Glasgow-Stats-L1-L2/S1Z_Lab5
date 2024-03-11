@@ -22,7 +22,7 @@ library(infer)
 #write.csv(HEARTDISEASE,file="C:/Users/mr340t/OneDrive - University of Glasgow/GTA work/S1Z/LogisticRegressionLabWorking/LogisticRegressionLab/HEARTDISEASE.csv")
 
 HEARTDISEASE <- read.csv("HeartDisease.csv")
-HEARTDISEASE <- na.omit(HEARTDISEASE)
+#HEARTDISEASE <- na.omit(HEARTDISEASE)
 
 
 #Diabetes <- read.csv("diabetes.csv")
@@ -31,7 +31,7 @@ HEARTDISEASE <- na.omit(HEARTDISEASE)
 
 
 DIABETES <- read.csv("diabetes.csv")
-DIABETES <- na.omit(DIABETES)
+#DIABETES <- na.omit(DIABETES)
 
 ```
 
