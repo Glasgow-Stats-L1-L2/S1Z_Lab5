@@ -9,7 +9,7 @@ Today we will explore the variables that contribute to heart disease. We will be
 Load the `HEARTDISEASE` data set into your workspace by typing the following code in an Rscript file in your local Rstudio.
 
 ```{r, eval = FALSE, echo = TRUE}
-HEARTDISEASE<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/main/HeartDisease.csv"))
+HEARTDISEASE<-read.csv(url("https://raw.githubusercontent.com/Glasgow-Stats-L1-L2/S1Z_Lab5/refs/heads/main/HeartDisease.csv"))
 ```
 
 You may download the dataset named `HeartDisease.csv` file from our Moodle course page. Once the file has downloaded, **save it in the same folder** as the `R` script file you created and saved for this lab. You should now set your working directory to this location by clicking `Session > Set Working Directory > To Source File Location`. You can load the data set into your workspace by running `HEARTDISEASE <- read.csv("HeartDisease.csv")`. 
@@ -62,7 +62,9 @@ It is also worth checking if there are missing values in this data set.
 To find how many observations we are missing from the weight variable you can run the following R code:
 
 ```{r, echo=TRUE, eval=FALSE}
-sum(is.na(HEARTDISEASE))
+HEARTDISEASE %>%
+  is.na() %>%
+  sum()
 ```
 
 The `is.na()` function creates a vector that corresponds to the variable provided, with `TRUE` for a missing value and `FALSE` for a non-missing value. The `sum()` function then adds up the elements in this created vector such that `TRUE` is equivalent to 1 and `FALSE` is equivalent to 0 and hence the sum of this vector is equivalent to the number of `TRUE` entries which calculates how many of these "NA" values there are.
@@ -77,7 +79,8 @@ The `is.na()` function creates a vector that corresponds to the variable provide
 We can remove observations with missing values and create a data set without these using the code below:
 
 ```{r, echo=TRUE, eval=TRUE}
-HEARTDISEASE <- na.omit(HEARTDISEASE)
+HEARTDISEASE <- HEARTDISEASE %>%
+  drop_na()
 ```
 
 
@@ -90,9 +93,11 @@ HEARTDISEASE <- na.omit(HEARTDISEASE)
 
 <br>
 
-We could investigate the number of people in the trial.
 
-For the categorical data of sex, `table()` and `prop.table()` can be handy.
+We will now explore the data before conducting any formal analysis.
+
+For the categorical data of sex, `table()` and `prop.table()` can be handy to tell us the number and percentages of males and females in the data set
+
 ```{r, echo=TRUE, eval=TRUE}
 sextable <- table(HEARTDISEASE$male)
 sextable
@@ -130,7 +135,7 @@ prop.table(sex_heartdisease_table, margin = 1)
 For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.
 
 ```{r, echo=TRUE, eval=TRUE}
-ggplot(HEARTDISEASE, aes(x = as.factor(TenYearCHD), y = age, fill = as.factor(TenYearCHD))) +
+ggplot(HEARTDISEASE, aes(x = TenYearCHD, y = age, fill = TenYearCHD)) +
   geom_boxplot() +
   labs(x = "Heart Disease Risk", y = "Age", fill = "Heart Disease")
 ```

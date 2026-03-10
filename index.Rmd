@@ -23,7 +23,7 @@ library(infer)
 
 HEARTDISEASE <- read.csv("HeartDisease.csv")
 #HEARTDISEASE <- na.omit(HEARTDISEASE)
-
+HEARTDISEASE$TenYearCHD<-as.factor(HEARTDISEASE$TenYearCHD)
 
 #Diabetes <- read.csv("diabetes.csv")
 #DIABETES <- Diabetes[,c(1,2,3,7,8,9)]
@@ -55,7 +55,7 @@ knitr::include_graphics("Images/toystory.jpg")
 * Calculate the odds and probabilities of heart disease risk from this model
 
 
-## An Introdution to Logistic Regression Modeling 
+## An Introduction to Logistic Regression Modeling 
 
 This lab will explore the concept of modelling data using logistic regression. Logistic regression is a type of Generalized Linear Model (GLM) which allows us to build models when there is a categorical response variable with two levels, e.g. yes and no.
 

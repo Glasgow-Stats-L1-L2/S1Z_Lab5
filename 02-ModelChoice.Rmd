@@ -64,9 +64,9 @@ summary(CHD_model)
 
 **Task 2**
 
-Based on this output, what is the equation of the logistic regression model? *(Answers to 3 decimal places)*
+Based on this output, what is the equation of the logistic regression model? *(Do not round your answers)*
 
 <!-- <center> \(log(\frac{p_i}{1-p_i})\) = `r fitb(-7.960)` + `r fitb(0.460)` `male` + `r fitb(0.066)` `age` + `r fitb(0.021)` `cigsPerDay` + `r mcq(c("0.002",answer="0.782", "0.220"))` `diabetes` + `r mcq(c("0.002",answer="0.017", "0.021"))` `sysBP`</center> -->
 
-<center> \(log(\frac{p_i}{1-p_i})\) = `r mcq(c(answer="-7.960","0.377", "-21.104"))` + `r mcq(c(answer="0.460","0.098", "-7.960"))` `male` + 0.066 `r mcq(c(answer="age","cigsPerDay", "diabetes"))` + `r mcq(c("-7.960","0.004", answer="0.021"))` `cigsPerDay` + 0.782 `r mcq(c("age","cigsPerDay", answer="diabetes"))` + `r mcq(c("0.002",answer="0.017", "0.021"))` `sysBP`</center>
+<center> \(log(\frac{p_i}{1-p_i})\) = `r mcq(c(answer="-7.959993","0.377176", "-21.104"))` + `r mcq(c(answer="0.459536","0.098419", "-7.959993"))` `male` + 0.066345 `r mcq(c(answer="age","cigsPerDay", "diabetes"))` + `r mcq(c("-7.959993","0.003902", answer="0.020558"))` `cigsPerDay` + 0.781744 `r mcq(c("age","cigsPerDay", answer="diabetes"))` + `r mcq(c("0.002013",answer="0.017460", "0.020558"))` `sysBP`</center>
 

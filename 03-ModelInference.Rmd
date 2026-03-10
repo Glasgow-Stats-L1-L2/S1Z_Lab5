@@ -9,7 +9,7 @@ output:
 knitr::include_graphics("Images/model.jpg")
 ```
 
-\[\boxed{\begin{align} log \left( \frac{p_i}{1-p_i} \right) &= -7.960 + 0.460 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay}\\& \hspace{0.5cm}  + 0.782 \text{ diabetes} + 0.017 \text{ sysBP}\end{align}}\]
+\[\boxed{\begin{align} log \left( \frac{p_i}{1-p_i} \right) &= -7.959993 + 0.459536 \text{ male} + 0.066345 \text{ age} + 0.020558 \text{ cigsPerDay}\\& \hspace{0.5cm}  + 0.781744 \text{ diabetes} + 0.017460 \text{ sysBP}\end{align}}\]
 
 <br>
 
@@ -21,50 +21,76 @@ The $\beta_i$ coefficients are **log odds ratios**, however given that these are
 
 For example, for the variable `male`, the odds ratio is:
 ```{r}
-exp(0.460)
+exp(0.459536)
 ```
-This tells us that the odds of getting diagnosed with heart disease in the next 10 years for males over that for females, when all other variables are held constant, is $\exp(0.460) = 1.584$. In terms of percent change, we can say that the odds of CHD diagnosis in the next 10 years for males are 58.4% higher than the odds for females.
+This tells us that the odds of getting diagnosed with heart disease in the next 10 years for males over that for females, when all other variables are held constant, is $\exp(0.459536) = 1.583$. In terms of percent change, we can say that the odds of CHD diagnosis in the next 10 years for males are 58.3% higher than the odds for females.
 
 <br>
 
 For the variable `age`, the odds ratio is:
 ```{r}
-exp(0.066)
+exp(0.066345)
 ```
-This means that, holding all other variables constant, we will see 7% increase in the odds of getting diagnosed with CHD in the next 10 years for a one year increase in age since $\exp(0.066) = 1.068$
+This means that, holding all other variables constant, we will see 7% increase in the odds of getting diagnosed with CHD in the next 10 years for a one year increase in age since $\exp(0.066345) = 1.069$
 
 <br>
 
 **Complete the following sentence for the interpretation of the coefficient for** `cigsPerDay`:
 
 There is a `r mcq(c("4%", answer="2%", "8%"))` `r mcq(c(answer="increase", "decrease"))` in the odds of getting diagnosed with CHD for `r mcq(c("being a smoker", answer="each extra cigarette smoked per day"))`
- when all other variables are `r mcq(c(answer="constant", "zero"))` since exp(`r fitb(0.021)`)=`r fitb(1.021)`
+ when all other variables are `r mcq(c(answer="constant", "zero"))` since exp(`r fitb(0.020558)`)=`r fitb(1.021)`
 
 
 `r hide("Solution")`
 For the variable `cigsPerDay`:
 ```{r}
-exp(0.021)
+exp(0.020558)
 ```
 `r unhide()`
 
 
-## Calculating Odds
+## Calculating Odds and Probabilities
 
 Odds are another way of quantifying the probability of an event and are calculated as $\mbox{odds}=\frac{p}{1-p}$. In logistic regression, we model the log-odds $\left( \log \frac{p_i}{1-p_i} \right)$. We can therefore calculate the odds by taking the exponential of the model equation:
 
-\[\boxed{ \begin{align} \frac{p_i}{1-p_i}&=exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})\\ &= exp(-7.960 + 0.460 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay}\\& \hspace{0.5cm}  + 0.782 \text{ diabetes} + 0.017 \text{ sysBP}) \end{align}}\]
+\[\boxed{ \begin{align} \frac{p_i}{1-p_i}&=exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})\\ &= exp(-7.959993 + 0.459536 \text{ male} + 0.066345 \text{ age} + 0.020558 \text{ cigsPerDay}\\& \hspace{0.5cm}  + 0.781744 \text{ diabetes} + 0.017460 \text{ sysBP}) \end{align}}\]
 
 
 We can work out the odds of CHD risk for a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190 as:
 ```{r}
-exp(-7.960 + 0.460*1 + 0.066*42 + 0.021*15 + 0.782*0 + 0.017*190)
+exp(-7.959993 + 0.459536*1 + 0.066345*42 + 0.020558*15 + 0.781744*0 + 0.017460*190)
 ```
-Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.306.
+Therefore the odds of a person with these characteristics developing CHD over 10-years is 0.337.
+
+To find predicted probabilities from our model we can take the inverse of the logit function:
+
+
+\[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.959993 + 0.459536 \text{ male} + ... + 0.017460 \text{ sysBP})}{1+exp(-7.959993 + 0.459536 \text{ male} + ... + 0.017460 \text{ sysBP})} \end{align}}\]
+
+We can work out the probability of 10 year CHD risk for the 3 patients discussed above. For a 42 year old male patient who smokes 15 cigarettes per day, does not have diabetes and has a systolic blood pressure of 190:
+```{r}
+exp(-7.959993 + 0.459536*1 + 0.066345*42 + 0.020558*15 + 0.781744*0 + 0.017460*190)/(1+exp(-7.959993 + 0.459536*1 + 0.066345*42 + 0.020558*15 + 0.781744*0 + 0.017460*190))
+```
+
+Or, rather than having to calculate the odds for the patient again, we can simply substitute the odds we calculated above into the formula above:
+
+\[\boxed{\begin{align} p_i&=\frac{0.337}{1+0.337}\\ \end{align}}\]
+
+
+```{r}
+0.337/(1+0.337)
+```
+
+So the probability of having a ten-year CHD risk for a patient with these characteristics is 25.2%. 
+
+**Note: The answers produced by R above are very slightly different since in the second approach we are using our rounded odds value. However, when rounded to 3 d.p.they give the same answer.**
+
 
 <br>
 
-**For the following patients, work out the odds of CHD risk (give any answers to 3 decimal places):**
+**Task 3**
+
+For the following patients, work out the odds and probability of 10 year CHD risk (give any answers to 3 decimal places):
 
 Patient 1:
 
@@ -74,11 +100,24 @@ Patient 1:
 * has diabetes
 * systolic blood pressure of 90
 
-The odds are `r fitb(0.049)`.
+The odds are `r fitb(0.052)`.
 
 `r hide("Solution")`
 ```{r}
-exp(-7.960 + 0.460*1 + 0.066*33 + 0.021*0 + 0.782*1 + 0.017*90)
+exp(-7.959993 + 0.459536*1 + 0.066345*33 + 0.020558*0 + 0.781744*1 + 0.017460*90)
+```
+`r unhide()`
+
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(4.9)`%. 
+
+
+`r hide("Solution")`
+```{r}
+exp(-7.959993 + 0.459536*1 + 0.066345*33 + 0.020558*0 + 0.781744*1 + 0.017460*90)/(1+exp(-7.959993 + 0.459536*1 + 0.066345*33 + 0.020558*0 + 0.781744*1 + 0.017460*90))
+
+## OR
+
+0.052/(1+0.052)
 ```
 `r unhide()`
 
@@ -92,20 +131,61 @@ Patient 2:
 * does not have diabetes
 * systolic blood pressure of 160
 
-The odds are `r fitb(0.278)`.
+The odds are `r fitb(0.306)`.
 
 `r hide("Solution")`
 ```{r}
-exp(-7.960 + 0.460*0 + 0.066*60 + 0.021*0 + 0.782*0 + 0.017*160)
+exp(-7.959993 + 0.459536*0 + 0.066345*60 + 0.020558*0 + 0.781744*0 + 0.017460*160)
+
 ```
 `r unhide()`
 
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(23.4)`%. 
 
+`r hide("Solution")`
+```{r}
+exp(-7.959993 + 0.459536*0 + 0.066345*60 + 0.020558*0 + 0.781744*0 + 0.017460*160)/(1+exp(-7.959993 + 0.459536*0 + 0.066345*60 + 0.020558*0 + 0.781744*0 + 0.017460*160))
+
+## OR
+
+0.306/(1+0.306)
+```
+`r unhide()`
+
+## Advanced optional task
+
+**Note: this optional task is very advanced and it is certainly not expected that all students will attempt this. However, if you are familiar with programming and want to test your skills, please go ahead!**
+
+Create a function in R that takes in two arguments
+
+1. xvals = values for all explanatory variables for a new patient
+2. coeffs = coefficient values from your fitted logistic regression model
+
+and returns the log-odds, odds, and predicited probability for the new patient.
+
+Please refer to the [R for Data Science online resource](https://r4ds.hadley.nz/functions.html) to learn more about writing functions in R.
+
+`r hide("Hint")`
+
+```{r hint1, eval = FALSE, echo = TRUE}
+predict_a_person <- function(xvals, coeffs){
+  [Insert fancy code here]
+  [To do calculations]
+
+  return(your_answer)
+  # Advanced alternative: return(list(A = ?, B = ?, C = ?))
+}
+predict_a_person(patient_1, my_estimates)
+
+```
+
+`r unhide()`
+
+
+<!--
 ## Calculating probabilities
 
 To find predicted probabilities from our model we can take the inverse of the logit function:
-
-<!-- \[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male} + 0.066 \text{ age} + 0.021 \text{ cigsPerDay} + 0.783 \text{ diabetes} + 0.017 \text{ sysBP})} \end{align}}\] -->
 
 \[\boxed{\begin{align} p_i&=\frac{exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}{1+exp(\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki})}\\ &=\frac{exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})}{1+exp(-7.944 + 0.457 \text{ male } + ... + 0.017 \text{ sysBP})} \end{align}}\]
 
@@ -154,3 +234,4 @@ The probability of having a ten-year CHD risk for a patient with these character
 exp(-7.960 + 0.460*0 + 0.066*60 + 0.021*0 + 0.782*0 + 0.017*160)/(1+exp(-7.960 + 0.460*0 + 0.066*60 + 0.021*0 + 0.782*0 + 0.017*160))
 ```
 `r unhide()`
+-->
