@@ -176,8 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Images/datamodelling.jpg" width="100%" /></p>
 <p>We would like to fit a model that estimates heart disease risk using multiple explanatory variables. Our response variable is the binary variable TenYearCHD: whether a patient developed coronary heart disease over 10 years, where Yes=0 and No =1.</p>
 <p><strong>What distribution do we expect our response variable to take?</strong></p>
-<div id="radio_CYPKJSPVEF" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_CYPKJSPVEF" value=""></input> <span>Normal Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_CYPKJSPVEF" value="answer"></input> <span>Binomial Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_CYPKJSPVEF" value=""></input> <span>Exponential Distribution</span></label>
+<div id="radio_IDSFVRFUXU" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_IDSFVRFUXU" value=""></input> <span>Normal Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_IDSFVRFUXU" value="answer"></input> <span>Binomial Distribution</span></label><label><input type="radio" autocomplete="off" name="radio_IDSFVRFUXU" value=""></input> <span>Exponential Distribution</span></label>
 </div>
 <p><br></p>
 <p><br></p>
@@ -225,7 +225,8 @@ Solution
 <span id="cb17-2"><a href="modelling-our-data.html#cb17-2" tabindex="-1"></a><span class="fu">summary</span>(logistic_model2)</span></code></pre></div>
 </div>
 <p>Lets use the following model to learn more about CHD risk:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelling-our-data.html#cb18-1" tabindex="-1"></a>CHD_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">data =</span> HEARTDISEASE)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="modelling-our-data.html#cb18-1" tabindex="-1"></a>CHD_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(TenYearCHD<span class="sc">~</span>male<span class="sc">+</span>age<span class="sc">+</span>cigsPerDay<span class="sc">+</span>diabetes<span class="sc">+</span>sysBP ,<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, </span>
+<span id="cb18-2"><a href="modelling-our-data.html#cb18-2" tabindex="-1"></a>                 <span class="at">data =</span> HEARTDISEASE)</span></code></pre></div>
 <p>First, let's use the <code>summary()</code> function to produce a summary of the model output.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="modelling-our-data.html#cb19-1" tabindex="-1"></a><span class="fu">summary</span>(CHD_model)</span></code></pre></div>
 <pre><code>## 

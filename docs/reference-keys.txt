@@ -1,3 +1,4 @@
+fig:unnamed-chunk-4
 welcome-to-s1z-lab-5---logistic-regression
 intended-learning-outcomes
 an-introduction-to-logistic-regression-modeling

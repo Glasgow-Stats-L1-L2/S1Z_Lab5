@@ -44,8 +44,8 @@ knitr::write_bib(c(
 
 # Welcome to S1Z Lab 5 - Logistic Regression
 
-```{r, echo = FALSE, out.width = "80%", fig.cap = ""}
-knitr::include_graphics("Images/toystory.jpg")
+```{r, echo = FALSE, out.width = "80%", fig.cap = "Created with ChatGPT"}
+knitr::include_graphics("Images/logisticregression.png")
 ```
 
 ## Intended Learning Outcomes:

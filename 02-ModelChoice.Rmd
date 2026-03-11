@@ -54,7 +54,8 @@ Lets use the following model to learn more about CHD risk:
 
 
 ```{r, eval=TRUE,echo=TRUE}
-CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", data = HEARTDISEASE)
+CHD_model <- glm(TenYearCHD~male+age+cigsPerDay+diabetes+sysBP ,family = "binomial", 
+                 data = HEARTDISEASE)
 ```
 
 First, let's use the `summary()` function to produce a summary of the model output.
