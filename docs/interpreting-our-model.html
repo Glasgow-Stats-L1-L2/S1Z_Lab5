@@ -192,7 +192,7 @@ The <span class="math inline">\(\beta_i\)</span> coefficients are <strong>log od
 <p><br></p>
 <p><strong>Complete the following sentence for the interpretation of the coefficient for</strong> <code>cigsPerDay</code>:</p>
 <p>There is a <select class='webex-select'><option value='blank'></option><option value=''>4%</option><option value='answer'>2%</option><option value=''>8%</option></select> <select class='webex-select'><option value='blank'></option><option value='answer'>increase</option><option value=''>decrease</option></select> in the odds of getting diagnosed with CHD for <select class='webex-select'><option value='blank'></option><option value=''>being a smoker</option><option value='answer'>each extra cigarette smoked per day</option></select>
-when all other variables are <select class='webex-select'><option value='blank'></option><option value='answer'>constant</option><option value=''>zero</option></select> since exp(<input class='webex-solveme nospaces' size='8' data-answer='["0.020558",".020558"]'/>)=<input class='webex-solveme nospaces' size='5' data-answer='["1.021"]'/></p>
+when all other variables are <select class='webex-select'><option value='blank'></option><option value='answer'>constant</option><option value=''>zero</option></select> since exp(<input class='webex-solveme nospaces' size='8' data-answer='["0.020558",".020558"]'/>)=<input class='webex-solveme nospaces' size='5' data-answer='["1.021"]'/> (<em>rounded to 3.d.p</em>)</p>
 <div class="webex-solution">
 <button>
 Solution
@@ -219,7 +219,7 @@ Solution
 <p><span class="math display">\[\boxed{\begin{align} p_i&amp;=\frac{0.337}{1+0.337}\\ \end{align}}\]</span></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="interpreting-our-model.html#cb31-1" tabindex="-1"></a><span class="fl">0.337</span><span class="sc">/</span>(<span class="dv">1</span><span class="fl">+0.337</span>)</span></code></pre></div>
 <pre><code>## [1] 0.2520568</code></pre>
-<p>So the probability of having a ten-year CHD risk for a patient with these characteristics is 25.2%.</p>
+<p>So the probability of having a ten-year CHD risk for a patient with these characteristics is 0.252.</p>
 <p><strong>Note: The answers produced by R above are very slightly different since in the second approach we are using our rounded odds value. However, when rounded to 3 d.p.they give the same answer.</strong></p>
 <p><br></p>
 <p><strong>Task 3</strong></p>
@@ -240,7 +240,7 @@ Solution
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="interpreting-our-model.html#cb33-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.959993</span> <span class="sc">+</span> <span class="fl">0.459536</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.066345</span><span class="sc">*</span><span class="dv">33</span> <span class="sc">+</span> <span class="fl">0.020558</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.781744</span><span class="sc">*</span><span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.017460</span><span class="sc">*</span><span class="dv">90</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0519264</code></pre>
 </div>
-<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='3' data-answer='["4.9"]'/>%.</p>
+<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='5' data-answer='["0.049",".049"]'/>.</p>
 <div class="webex-solution">
 <button>
 Solution
@@ -269,7 +269,7 @@ Solution
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="interpreting-our-model.html#cb39-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span><span class="fl">7.959993</span> <span class="sc">+</span> <span class="fl">0.459536</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.066345</span><span class="sc">*</span><span class="dv">60</span> <span class="sc">+</span> <span class="fl">0.020558</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.781744</span><span class="sc">*</span><span class="dv">0</span> <span class="sc">+</span> <span class="fl">0.017460</span><span class="sc">*</span><span class="dv">160</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3055344</code></pre>
 </div>
-<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='4' data-answer='["23.4"]'/>%.</p>
+<p>The probability of having a ten-year CHD risk for a patient with these characteristics is <input class='webex-solveme nospaces' size='5' data-answer='["0.234",".234"]'/>.</p>
 <div class="webex-solution">
 <button>
 Solution

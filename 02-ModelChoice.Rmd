@@ -18,7 +18,7 @@ answer = "Binomial Distribution", "Exponential Distribution")
 
 <br>
 
-As our response is a categorical variable we will need to use a generalized linear mixed model (GLM), specifically one with a logit function as our response is binary (0 or 1) and therefore we can assume binomially distributed.
+As our response is a categorical variable we will need to use a generalized linear model (GLM), specifically one with a logit function as our response is binary (0 or 1) and therefore we can assume binomially distributed.
 
 
 \[\boxed{g(p)=log(\frac{p_i}{1-p_i})=\beta_0+\beta_1x_{1i}+...+\beta_kx_{ki}}\]

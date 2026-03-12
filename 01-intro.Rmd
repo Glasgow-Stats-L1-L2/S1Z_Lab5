@@ -132,10 +132,10 @@ prop.table(sex_heartdisease_table, margin = 1)
 
 <br>
 
-For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.
+For when working with a combination of continuous variables like `age` and a binary variable like `TenYearCHD`, box plots can be useful. Currently, our response, `TenYearCHD` is stored as an integer (0 or 1), so we need to specify `as.factor(TenYearCHD)` within the `ggplot()` so that `R` knows to treat it as a binary categorical variable.
 
 ```{r, echo=TRUE, eval=TRUE}
-ggplot(HEARTDISEASE, aes(x = TenYearCHD, y = age, fill = TenYearCHD)) +
+ggplot(HEARTDISEASE, aes(x = as.factor(TenYearCHD), y = age, fill = as.factor(TenYearCHD))) +
   geom_boxplot() +
   labs(x = "Heart Disease Risk", y = "Age", fill = "Heart Disease")
 ```

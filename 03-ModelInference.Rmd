@@ -38,7 +38,7 @@ This means that, holding all other variables constant, we will see 7% increase i
 **Complete the following sentence for the interpretation of the coefficient for** `cigsPerDay`:
 
 There is a `r mcq(c("4%", answer="2%", "8%"))` `r mcq(c(answer="increase", "decrease"))` in the odds of getting diagnosed with CHD for `r mcq(c("being a smoker", answer="each extra cigarette smoked per day"))`
- when all other variables are `r mcq(c(answer="constant", "zero"))` since exp(`r fitb(0.020558)`)=`r fitb(1.021)`
+ when all other variables are `r mcq(c(answer="constant", "zero"))` since exp(`r fitb(0.020558)`)=`r fitb(1.021)` (*rounded to 3.d.p*)
 
 
 `r hide("Solution")`
@@ -81,7 +81,7 @@ Or, rather than having to calculate the odds for the patient again, we can simpl
 0.337/(1+0.337)
 ```
 
-So the probability of having a ten-year CHD risk for a patient with these characteristics is 25.2%. 
+So the probability of having a ten-year CHD risk for a patient with these characteristics is 0.252. 
 
 **Note: The answers produced by R above are very slightly different since in the second approach we are using our rounded odds value. However, when rounded to 3 d.p.they give the same answer.**
 
@@ -108,7 +108,7 @@ exp(-7.959993 + 0.459536*1 + 0.066345*33 + 0.020558*0 + 0.781744*1 + 0.017460*90
 ```
 `r unhide()`
 
-The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(4.9)`%. 
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(0.049)`. 
 
 
 `r hide("Solution")`
@@ -140,7 +140,7 @@ exp(-7.959993 + 0.459536*0 + 0.066345*60 + 0.020558*0 + 0.781744*0 + 0.017460*16
 ```
 `r unhide()`
 
-The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(23.4)`%. 
+The probability of having a ten-year CHD risk for a patient with these characteristics is `r fitb(0.234)`. 
 
 `r hide("Solution")`
 ```{r}

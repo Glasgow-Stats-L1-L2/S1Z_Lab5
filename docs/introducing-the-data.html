@@ -251,15 +251,15 @@ Hint
 <p><strong>What proportion of men were at risk of heart disease risk after 10 years (to 2 decimal places)?</strong>
 <input class='webex-solveme nospaces' size='5' data-answer='["18.77"]'/>%</p>
 <p><br></p>
-<p>For when working with a combination of continuous varibales like age and a binary variable like TenYearCHD, box plots can be useful.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introducing-the-data.html#cb14-1" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> TenYearCHD, <span class="at">y =</span> age, <span class="at">fill =</span> TenYearCHD)) <span class="sc">+</span></span>
+<p>For when working with a combination of continuous variables like <code>age</code> and a binary variable like <code>TenYearCHD</code>, box plots can be useful. Currently, our response, <code>TenYearCHD</code> is stored as an integer (0 or 1), so we need to specify <code>as.factor(TenYearCHD)</code> within the <code>ggplot()</code> so that <code>R</code> knows to treat it as a binary categorical variable.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introducing-the-data.html#cb14-1" tabindex="-1"></a><span class="fu">ggplot</span>(HEARTDISEASE, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as.factor</span>(TenYearCHD), <span class="at">y =</span> age, <span class="at">fill =</span> <span class="fu">as.factor</span>(TenYearCHD))) <span class="sc">+</span></span>
 <span id="cb14-2"><a href="introducing-the-data.html#cb14-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
 <span id="cb14-3"><a href="introducing-the-data.html#cb14-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Heart Disease Risk&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Age&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;Heart Disease&quot;</span>)</span></code></pre></div>
 <p><img src="main_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><br></p>
 <p><strong>From the boxplot, do the patients with ten year risk of heart disease appear to have a higher or lower median age? </strong></p>
-<div id="radio_JDBUVCTMNQ" class="webex-radiogroup">
-<label><input type="radio" autocomplete="off" name="radio_JDBUVCTMNQ" value="answer"></input> <span>Higher</span></label><label><input type="radio" autocomplete="off" name="radio_JDBUVCTMNQ" value=""></input> <span>Lower</span></label>
+<div id="radio_ZYLUUSIUWT" class="webex-radiogroup">
+<label><input type="radio" autocomplete="off" name="radio_ZYLUUSIUWT" value="answer"></input> <span>Higher</span></label><label><input type="radio" autocomplete="off" name="radio_ZYLUUSIUWT" value=""></input> <span>Lower</span></label>
 </div>
 
 </div>
