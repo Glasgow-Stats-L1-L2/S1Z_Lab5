@@ -55,7 +55,7 @@ knitr::include_graphics("Images/logisticregression.png")
 * Calculate the odds and probabilities of heart disease risk from this model
 
 
-## An Introduction to Logistic Regression Modeling 
+## An Introduction to Logistic Regression Modelling 
 
 This lab will explore the concept of modelling data using logistic regression. Logistic regression is a type of Generalized Linear Model (GLM) which allows us to build models when there is a categorical response variable with two levels, e.g. yes and no.
 
